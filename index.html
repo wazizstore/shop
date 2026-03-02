@@ -179,7 +179,7 @@
 /* بعد التعديل - الآن تظهر 2 منتج فقط في كل صف */
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* منتجان في كل صف */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
     margin-bottom: 60px;
 }
