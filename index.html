@@ -174,14 +174,15 @@
             height: 3px;
             background: var(--accent);
             margin: 15px auto 0;
-        }
+     }
 
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
+/* بعد التعديل - الآن تظهر 2 منتج فقط في كل صف */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* منتجان في كل صف */
+    gap: 30px;
+    margin-bottom: 60px;
+}
 
         /* ========== PRODUCT CARD ========== */
         .product-card {
@@ -2230,4 +2231,3 @@
     </script>
 </body>
 </html>
-
