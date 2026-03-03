@@ -1306,7 +1306,60 @@
                 right: 15px;
             }
         }
-    </style>
+  /* ========== تحسينات الهيدر ========== */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.header-center-image {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+.center-logo {
+    height: 50px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+   filter: none;
+    transition: transform 0.3s ease;
+}
+
+.center-logo:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .center-logo {
+        height: 35px;
+        max-width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .center-logo {
+        height: 28px;
+        max-width: 120px;
+    }
+    
+    .logo h1 {
+        font-size: 18px;
+    }
+    
+    .cart-icon {
+        font-size: 20px;
+    }
+}
+    </style> 
+    
 </head>
 <body>
     <!-- شريط متحرك -->
@@ -1321,19 +1374,22 @@
         </div>
     </div>
 
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <h1><span>waziz</span> shop</h1>
-                </div>
-                <div class="cart-icon" onclick="toggleCart()">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count" id="cartCount">0</span>
-                </div>
+  <header>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <h1><span>waziz</span> shop</h1>
+            </div>
+            <div class="header-center-image">
+                <img src="Untitled design (31).png" alt="Investment Categories" class="center-logo">
+            </div>
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
     <main id="mainContent"></main>
 
@@ -2379,6 +2435,7 @@
     </script>
 </body>
 </html>
+
 
 
 
