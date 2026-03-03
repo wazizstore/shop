@@ -42,7 +42,49 @@
             overflow-x: hidden;
         }
 
-        /* ========== تأثيرات رمضانية ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ========== تأثيرات رمضانية - هلال معلق ========== */
+        .ramadan-crescent {
+            position: fixed;
+            top: -10px;
+            left: 20px;
+            font-size: 45px;
+            color: var(--ramadan-gold);
+            z-index: 1002;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+            transform-origin: top center;
+            animation: hang 3s ease-in-out infinite;
+        }
+
+        @keyframes hang {
+            0%, 100% { transform: rotate(0deg) translateY(0); }
+            25% { transform: rotate(2deg) translateY(3px); }
+            75% { transform: rotate(-2deg) translateY(3px); }
+        }
+
+        .crescent-string {
+            position: fixed;
+            top: 0;
+            left: 45px;
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--ramadan-gold), transparent);
+            z-index: 1001;
+            animation: swingString 3s ease-in-out infinite;
+        }
+
+        @keyframes swingString {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(2deg); }
+            75% { transform: rotate(-2deg); }
+        }
+
+        /* ========== النجوم الحقيقية ========== */
         .ramadan-stars {
             position: fixed;
             top: 0;
@@ -51,64 +93,47 @@
             height: 100%;
             pointer-events: none;
             z-index: 9999;
+            opacity: 0.6;
         }
 
-        .star {
+        .real-star {
             position: absolute;
-            color: var(--ramadan-gold);
-            font-size: 20px;
-            animation: fall linear infinite;
+            background: transparent;
+            width: 3px;
+            height: 3px;
+            box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8);
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .real-star::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: 7px;
+            height: 7px;
+            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
             opacity: 0.7;
         }
 
-        @keyframes fall {
-            0% {
-                transform: translateY(-100px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
+        .real-star::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            width: 11px;
+            height: 11px;
+            background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, rgba(255,215,0,0) 70%);
+            border-radius: 50%;
         }
 
-        .crescent {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            font-size: 40px;
-            color: var(--ramadan-gold);
-            z-index: 1002;
-            animation: glow 2s ease-in-out infinite;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
         }
 
-        @keyframes glow {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.1); opacity: 1; }
-        }
-
-        .ramadan-message {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, var(--ramadan-gold), #ffaa00);
-            color: #000;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: 700;
-            z-index: 1002;
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
-            animation: slideIn 0.5s ease;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ========== SHUFFLING BAR مع تأثير رمضاني ========== */
+        /* ========== SHUFFLING BAR ========== */
         .shuffling-bar {
             background: linear-gradient(135deg, var(--ramadan-purple), var(--ramadan-blue));
             color: white;
@@ -250,20 +275,20 @@
             margin: 15px auto 0;
         }
 
-        /* تعديل عرض المنتجات - منتجان في كل صف مع تحسين المسافات */
+        /* تعديل عرض المنتجات - منتجان في كل صف مع حجم أكبر */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 20px;
             margin-bottom: 40px;
-            padding: 0 10px;
+            padding: 0 15px;
         }
 
         /* تحسين للشاشات الأصغر */
         @media (max-width: 480px) {
             .products-grid {
-                gap: 10px;
-                padding: 0 5px;
+                gap: 15px;
+                padding: 0 10px;
             }
         }
 
@@ -277,6 +302,7 @@
             cursor: pointer;
             position: relative;
             border: 1px solid rgba(255, 215, 0, 0.1);
+            width: 100%;
         }
 
         .product-card:hover {
@@ -345,16 +371,16 @@
         }
 
         .product-info {
-            padding: 12px 10px;
+            padding: 15px 12px;
         }
 
         .product-name {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             color: var(--primary);
             line-height: 1.3;
-            height: 36px;
+            height: 40px;
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -364,18 +390,19 @@
         .price-container {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 5px;
+            gap: 10px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
         }
 
         .original-price {
-            font-size: 12px;
+            font-size: 13px;
             color: var(--gray);
             text-decoration: line-through;
         }
 
         .product-price {
-            font-size: 16px;
+            font-size: 18px;
             color: var(--secondary);
             font-weight: 700;
         }
@@ -383,38 +410,11 @@
         .delivery-badge {
             background: #e8f5e9;
             color: #2e7d32;
-            padding: 3px 6px;
+            padding: 4px 8px;
             border-radius: 20px;
-            font-size: 10px;
+            font-size: 11px;
             display: inline-block;
-            margin-bottom: 5px;
-        }
-
-        .view-product-btn {
-            width: 100%;
-            padding: 8px;
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            color: white;
-            border: none;
-            border-radius: var(--radius);
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .view-product-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        .view-product-btn.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .view-product-btn.disabled:hover {
-            transform: none;
+            margin-bottom: 8px;
         }
 
         /* ========== PRODUCT PAGE (FULL SCREEN) ========== */
@@ -1260,6 +1260,24 @@
             .order-section h2 {
                 font-size: 20px;
             }
+            
+            .product-name {
+                font-size: 14px;
+                height: 38px;
+            }
+            
+            .product-price {
+                font-size: 16px;
+            }
+            
+            .ramadan-crescent {
+                font-size: 35px;
+                left: 10px;
+            }
+            
+            .crescent-string {
+                left: 35px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1288,23 +1306,31 @@
                 font-size: 18px;
             }
             
-            .ramadan-message {
-                font-size: 12px;
-                padding: 5px 10px;
-                top: 10px;
-                right: 10px;
+            .product-name {
+                font-size: 13px;
+                height: 36px;
             }
             
-            .crescent {
-                font-size: 25px;
+            .product-price {
+                font-size: 15px;
+            }
+            
+            .price-container {
+                gap: 5px;
+            }
+            
+            .original-price {
+                font-size: 11px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- تأثيرات رمضانية -->
-    <div class="crescent">🌙</div>
-    <div class="ramadan-message">✨ رمضان كريم ✨</div>
+    <!-- هلال معلق -->
+    <div class="ramadan-crescent">🌙</div>
+    <div class="crescent-string"></div>
+
+    <!-- نجوم حقيقية قليلة -->
     <div class="ramadan-stars" id="stars-container"></div>
 
     <!-- شريط متحرك -->
@@ -1440,18 +1466,34 @@
 
     <script>
         // ============================================
-        // إنشاء النجوم المتساقطة
+        // إنشاء النجوم الحقيقية (قليلة فقط)
         // ============================================
-        function createStars() {
+        function createRealStars() {
             const starsContainer = document.getElementById('stars-container');
-            for (let i = 0; i < 50; i++) {
+            // فقط 8 نجوم (قليلة)
+            for (let i = 0; i < 8; i++) {
                 const star = document.createElement('div');
-                star.className = 'star';
-                star.innerHTML = '✨';
+                star.className = 'real-star';
+                
+                // توزيع عشوائي في الصفحة
                 star.style.left = Math.random() * 100 + '%';
-                star.style.animationDuration = Math.random() * 3 + 2 + 's';
-                star.style.fontSize = Math.random() * 20 + 10 + 'px';
+                star.style.top = Math.random() * 100 + '%';
+                
+                // أحجام مختلفة
+                const size = Math.random() * 4 + 2;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                
+                // تأخير مختلف للوميض
                 star.style.animationDelay = Math.random() * 5 + 's';
+                
+                // ألوان مختلفة للنجوم (ذهبي وأبيض)
+                if (Math.random() > 0.5) {
+                    star.style.boxShadow = '0 0 12px 3px rgba(255, 215, 0, 0.9)';
+                } else {
+                    star.style.boxShadow = '0 0 12px 3px rgba(255, 255, 255, 0.9)';
+                }
+                
                 starsContainer.appendChild(star);
             }
         }
@@ -2297,7 +2339,7 @@
         // تهيئة الصفحة
         // ============================================
         document.addEventListener('DOMContentLoaded', () => {
-            createStars();
+            createRealStars();
             renderHomePage();
             
             setInterval(() => {
