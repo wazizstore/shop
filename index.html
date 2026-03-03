@@ -51,15 +51,15 @@
         /* ========== تأثيرات رمضانية - هلال معلق ========== */
         .ramadan-crescent {
             position: fixed;
-            top: 70px; /* تحت الهيدر مباشرة */
+            top: 70px;
             left: 20px;
             font-size: 45px;
             color: var(--ramadan-gold);
-            z-index: 999; /* أقل من سلة المشتريات */
+            z-index: 999;
             filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
             transform-origin: top center;
             animation: hang 3s ease-in-out infinite;
-            pointer-events: none; /* لا يؤثر على النقر */
+            pointer-events: none;
         }
 
         @keyframes hang {
@@ -70,7 +70,7 @@
 
         .crescent-string {
             position: fixed;
-            top: 40px; /* يبدأ من تحت الهيدر */
+            top: 40px;
             left: 45px;
             width: 2px;
             height: 35px;
@@ -213,7 +213,7 @@
             align-items: center;
             gap: 5px;
             transition: transform 0.2s ease;
-            z-index: 1001; /* أعلى من الهلال */
+            z-index: 1001;
         }
 
         .cart-icon:hover {
@@ -278,7 +278,6 @@
             margin: 15px auto 0;
         }
 
-        /* تعديل عرض المنتجات - منتجان في كل صف مع حجم أكبر */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -287,7 +286,6 @@
             padding: 0 15px;
         }
 
-        /* تحسين للشاشات الأصغر */
         @media (max-width: 480px) {
             .products-grid {
                 gap: 15px;
@@ -333,7 +331,6 @@
             transform: scale(1.05);
         }
 
-        /* ========== OUT OF STOCK BADGE ========== */
         .out-of-stock-badge {
             position: absolute;
             top: 10px;
@@ -454,7 +451,7 @@
             margin-bottom: 40px;
         }
 
-        /* ===== معرض الصور المحسن مع عرض كامل الشاشة ===== */
+        /* ===== معرض الصور المحسن ===== */
         .product-gallery {
             display: flex;
             flex-direction: column;
@@ -468,7 +465,6 @@
             overflow: hidden;
             border-radius: var(--radius);
             background: #f5f5f5;
-            cursor: pointer;
         }
 
         .main-image-slider {
@@ -1401,7 +1397,7 @@
     </style>
 </head>
 <body>
-    <!-- هلال معلق (تحت سلة المشتريات) -->
+    <!-- هلال معلق -->
     <div class="ramadan-crescent">🌙</div>
     <div class="crescent-string"></div>
 
@@ -1543,28 +1539,20 @@
 
     <script>
         // ============================================
-        // إنشاء النجوم الحقيقية (قليلة فقط)
+        // إنشاء النجوم الحقيقية
         // ============================================
         function createRealStars() {
             const starsContainer = document.getElementById('stars-container');
-            // فقط 8 نجوم (قليلة)
             for (let i = 0; i < 8; i++) {
                 const star = document.createElement('div');
                 star.className = 'real-star';
-                
-                // توزيع عشوائي في الصفحة
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                
-                // أحجام مختلفة
                 const size = Math.random() * 4 + 2;
                 star.style.width = size + 'px';
                 star.style.height = size + 'px';
-                
-                // تأخير مختلف للوميض
                 star.style.animationDelay = Math.random() * 5 + 's';
                 
-                // ألوان مختلفة للنجوم (ذهبي وأبيض)
                 if (Math.random() > 0.5) {
                     star.style.boxShadow = '0 0 12px 3px rgba(255, 215, 0, 0.9)';
                 } else {
@@ -1576,7 +1564,7 @@
         }
 
         // ============================================
-        // المنتجات
+        // المنتجات - تم إضافة JACKET NIKE DOUBLE FAS
         // ============================================
         const products = [
             {
@@ -1648,7 +1636,7 @@
                     { name: "أسود", class: "black" }
                 ],
                 sizes: ["m", "l", "xl"],
-                inStock: false
+                inStock: true
             },
             {
                 id: 5,
@@ -1765,7 +1753,7 @@
                 ],
                 sizes: ["m", "l", "xl"],
                 inStock: true
-            }
+            },
         ];
 
         // ============================================
@@ -1849,7 +1837,7 @@
         }
 
         // ============================================
-        // عرض صفحة المنتج (Full Screen)
+        // عرض صفحة المنتج
         // ============================================
         function viewProduct(productId) {
             const product = products.find(p => p.id === productId);
@@ -1862,7 +1850,7 @@
 
             const mainContent = document.getElementById('mainContent');
             
-            // إنشاء شرائح الصور للتمرير
+            // إنشاء شرائح الصور
             const imageSlides = product.images.map((img, index) => 
                 `<div class="main-image-slide" onclick="openFullscreen(${index})">
                     <img src="${img}" alt="${product.name} - صورة ${index + 1}">
@@ -1876,6 +1864,7 @@
                 </div>`
             ).join('');
 
+            // إنشاء خيارات الألوان
             const colorOptions = product.colors.map(color => {
                 const isDisabled = color.inStock === false;
                 const colorName = typeof color === 'string' ? color : color.name;
@@ -2228,9 +2217,15 @@
             const sizeSelect = document.getElementById('productSize');
             const unknownCheck = document.getElementById('unknownSizeCheck');
             
-            if (!selectedColor) {
-                showToast('يرجى اختيار اللون');
-                return false;
+            // إذا كان المنتج هو JACKET NIKE DOUBLE FAS (id 11) أو أي منتج بلون واحد فقط
+            if (currentProduct.id === 11 || currentProduct.colors.length === 1) {
+                // لا نحتاج للتحقق من اللون
+                selectedColor = currentProduct.colors[0].name; // تعيين اللون تلقائياً
+            } else {
+                if (!selectedColor) {
+                    showToast('يرجى اختيار اللون');
+                    return false;
+                }
             }
 
             if (unknownCheck && unknownCheck.checked) {
@@ -2282,8 +2277,18 @@
                 return;
             }
 
-            if (!selectedColor || !selectedSize) {
-                showToast('يرجى اختيار اللون والقياس من الأعلى');
+            // إذا كان المنتج هو JACKET NIKE DOUBLE FAS (id 11) أو أي منتج بلون واحد فقط
+            if (currentProduct.id === 11 || currentProduct.colors.length === 1) {
+                selectedColor = currentProduct.colors[0].name; // تعيين اللون تلقائياً
+            } else {
+                if (!selectedColor) {
+                    showToast('يرجى اختيار اللون');
+                    return;
+                }
+            }
+
+            if (!selectedSize) {
+                showToast('يرجى اختيار القياس');
                 return;
             }
 
@@ -2498,7 +2503,7 @@
                     const checkoutContent = document.querySelector('.checkout-content');
                     const successMessage = document.createElement('div');
                     successMessage.className = 'success-message';
-                    successMessage.innerHTML = 'مرحبا خي(ة) المهم رآه تم تسجيل الطلب ديالك المهم بالنسبة التوصيل كيكون 1 حتال 5 ايام على حسب المدين ديالك المهم غدا او اليوم رآه غتصوني عليك لبنت ديال الكونفيرما لي غدي تدوز ليك الكوموند ديالك لشركة التوصيل ياله اخي مرحبا أو مبارك عواشرك خي لعزيز';
+                    successMessage.innerHTML = '✅ لقد تم الطلب سنتصل بك قريبا لتأكيد الطلب';
                     
                     checkoutContent.innerHTML = '';
                     checkoutContent.appendChild(successMessage);
@@ -2532,5 +2537,3 @@
     </script>
 </body>
 </html>
-
-
