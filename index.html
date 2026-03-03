@@ -51,14 +51,15 @@
         /* ========== تأثيرات رمضانية - هلال معلق ========== */
         .ramadan-crescent {
             position: fixed;
-            top: -10px;
+            top: 70px; /* تحت الهيدر مباشرة */
             left: 20px;
             font-size: 45px;
             color: var(--ramadan-gold);
-            z-index: 1002;
+            z-index: 999; /* أقل من سلة المشتريات */
             filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
             transform-origin: top center;
             animation: hang 3s ease-in-out infinite;
+            pointer-events: none; /* لا يؤثر على النقر */
         }
 
         @keyframes hang {
@@ -69,13 +70,14 @@
 
         .crescent-string {
             position: fixed;
-            top: 0;
+            top: 40px; /* يبدأ من تحت الهيدر */
             left: 45px;
             width: 2px;
-            height: 40px;
+            height: 35px;
             background: linear-gradient(to bottom, var(--ramadan-gold), transparent);
-            z-index: 1001;
+            z-index: 998;
             animation: swingString 3s ease-in-out infinite;
+            pointer-events: none;
         }
 
         @keyframes swingString {
@@ -211,6 +213,7 @@
             align-items: center;
             gap: 5px;
             transition: transform 0.2s ease;
+            z-index: 1001; /* أعلى من الهلال */
         }
 
         .cart-icon:hover {
@@ -375,12 +378,12 @@
         }
 
         .product-name {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
             margin-bottom: 8px;
             color: var(--primary);
             line-height: 1.3;
-            height: 40px;
+            height: 42px;
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -396,13 +399,13 @@
         }
 
         .original-price {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--gray);
             text-decoration: line-through;
         }
 
         .product-price {
-            font-size: 18px;
+            font-size: 20px;
             color: var(--secondary);
             font-weight: 700;
         }
@@ -468,49 +471,33 @@
             cursor: pointer;
         }
 
-        .main-image {
+        .main-image-slider {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+        }
+
+        .main-image-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .main-image-slide {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .main-image-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity 0.3s ease;
-        }
-
-        .fullscreen-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 10000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .fullscreen-overlay.active {
-            display: flex;
-        }
-
-        .fullscreen-image {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-        }
-
-        .close-fullscreen {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: white;
-            font-size: 40px;
-            cursor: pointer;
-            z-index: 10001;
-            transition: transform 0.3s ease;
-        }
-
-        .close-fullscreen:hover {
-            transform: scale(1.2);
+            pointer-events: none;
         }
 
         .slider-arrow {
@@ -572,6 +559,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            pointer-events: none;
         }
 
         .product-info-detail {
@@ -1192,6 +1180,90 @@
             font-size: 12px;
         }
 
+        /* ========== FULLSCREEN IMAGE VIEWER ========== */
+        .fullscreen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fullscreen-overlay.active {
+            display: flex;
+        }
+
+        .fullscreen-slider {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+
+        .fullscreen-slide {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fullscreen-slide img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .close-fullscreen {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 10001;
+            transition: transform 0.3s ease;
+        }
+
+        .close-fullscreen:hover {
+            transform: scale(1.2);
+        }
+
+        .fullscreen-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10001;
+            color: white;
+            font-size: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .fullscreen-arrow:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .fullscreen-arrow.left { left: 20px; }
+        .fullscreen-arrow.right { right: 20px; }
+
         /* ========== RESPONSIVE ========== */
         @media (max-width: 992px) {
             .product-detail {
@@ -1262,21 +1334,24 @@
             }
             
             .product-name {
-                font-size: 14px;
-                height: 38px;
+                font-size: 15px;
+                height: 40px;
             }
             
             .product-price {
-                font-size: 16px;
+                font-size: 18px;
             }
             
             .ramadan-crescent {
                 font-size: 35px;
                 left: 10px;
+                top: 60px;
             }
             
             .crescent-string {
                 left: 35px;
+                top: 30px;
+                height: 35px;
             }
         }
 
@@ -1307,12 +1382,12 @@
             }
             
             .product-name {
-                font-size: 13px;
-                height: 36px;
+                font-size: 14px;
+                height: 38px;
             }
             
             .product-price {
-                font-size: 15px;
+                font-size: 17px;
             }
             
             .price-container {
@@ -1320,13 +1395,13 @@
             }
             
             .original-price {
-                font-size: 11px;
+                font-size: 12px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- هلال معلق -->
+    <!-- هلال معلق (تحت سلة المشتريات) -->
     <div class="ramadan-crescent">🌙</div>
     <div class="crescent-string"></div>
 
@@ -1422,10 +1497,12 @@
     <!-- Modal -->
     <div id="modal" style="display: none;"></div>
 
-    <!-- Fullscreen Image Modal -->
-    <div class="fullscreen-overlay" id="fullscreenOverlay" onclick="closeFullscreen()">
+    <!-- Fullscreen Image Viewer -->
+    <div class="fullscreen-overlay" id="fullscreenOverlay">
         <span class="close-fullscreen" onclick="closeFullscreen()">&times;</span>
-        <img src="" alt="Fullscreen" class="fullscreen-image" id="fullscreenImage">
+        <div class="fullscreen-arrow left" onclick="fullscreenPrevImage()">❮</div>
+        <div class="fullscreen-arrow right" onclick="fullscreenNextImage()">❯</div>
+        <div class="fullscreen-slider" id="fullscreenSlider"></div>
     </div>
 
     <!-- إشعار Toast -->
@@ -1699,6 +1776,7 @@
         let selectedColor = '';
         let selectedSize = '';
         let currentImageIndex = 0;
+        let fullscreenCurrentIndex = 0;
 
         // ============================================
         // عرض الصفحة الرئيسية
@@ -1784,8 +1862,16 @@
 
             const mainContent = document.getElementById('mainContent');
             
+            // إنشاء شرائح الصور للتمرير
+            const imageSlides = product.images.map((img, index) => 
+                `<div class="main-image-slide" onclick="openFullscreen(${index})">
+                    <img src="${img}" alt="${product.name} - صورة ${index + 1}">
+                </div>`
+            ).join('');
+
+            // إنشاء التصغيرات
             const thumbnails = product.images.map((img, index) => 
-                `<div class="thumbnail ${index === 0 ? 'active' : ''}" onclick="changeImage(${index})">
+                `<div class="thumbnail ${index === 0 ? 'active' : ''}" onclick="goToSlide(${index})">
                     <img src="${img}" alt="صورة ${index + 1}">
                 </div>`
             ).join('');
@@ -1813,12 +1899,14 @@
                         
                         <div class="product-detail">
                             <div class="product-gallery">
-                                <div class="main-image-container" onclick="openFullscreen('${product.images[0]}')">
-                                    <img src="${product.images[0]}" alt="${product.name}" class="main-image" id="mainImage">
-                                    <div class="slider-arrow left" onclick="event.stopPropagation(); previousImage()">
+                                <div class="main-image-container">
+                                    <div class="main-image-slider" id="imageSlider">
+                                        ${imageSlides}
+                                    </div>
+                                    <div class="slider-arrow left" onclick="slideImage(-1)">
                                         <i class="fas fa-chevron-right"></i>
                                     </div>
-                                    <div class="slider-arrow right" onclick="event.stopPropagation(); nextImage()">
+                                    <div class="slider-arrow right" onclick="slideImage(1)">
                                         <i class="fas fa-chevron-left"></i>
                                     </div>
                                 </div>
@@ -1910,69 +1998,164 @@
                 </div>
             `;
 
+            // إضافة مستمع حدث للتمرير
+            setTimeout(() => {
+                const slider = document.getElementById('imageSlider');
+                if (slider) {
+                    slider.addEventListener('scroll', function() {
+                        const slideWidth = this.clientWidth;
+                        const scrollPosition = this.scrollLeft;
+                        const newIndex = Math.round(scrollPosition / slideWidth);
+                        
+                        if (newIndex !== currentImageIndex) {
+                            currentImageIndex = newIndex;
+                            updateActiveThumbnail(currentImageIndex);
+                        }
+                    });
+                }
+            }, 100);
+
             window.scrollTo(0, 0);
-        }
-
-        // ============================================
-        // Fullscreen Image
-        // ============================================
-        function openFullscreen(imageSrc) {
-            const overlay = document.getElementById('fullscreenOverlay');
-            const fullscreenImage = document.getElementById('fullscreenImage');
-            fullscreenImage.src = imageSrc;
-            overlay.classList.add('active');
-        }
-
-        function closeFullscreen() {
-            document.getElementById('fullscreenOverlay').classList.remove('active');
         }
 
         // ============================================
         // دوال التنقل بين الصور
         // ============================================
-        function previousImage() {
-            if (!currentProduct) return;
+        function slideImage(direction) {
+            const slider = document.getElementById('imageSlider');
+            if (!slider || !currentProduct) return;
             
-            currentImageIndex--;
-            if (currentImageIndex < 0) {
-                currentImageIndex = currentProduct.images.length - 1;
+            const slideWidth = slider.clientWidth;
+            const newIndex = currentImageIndex + direction;
+            
+            if (newIndex >= 0 && newIndex < currentProduct.images.length) {
+                currentImageIndex = newIndex;
+                slider.scrollTo({
+                    left: currentImageIndex * slideWidth,
+                    behavior: 'smooth'
+                });
+                updateActiveThumbnail(currentImageIndex);
             }
-            
-            updateMainImage();
         }
 
-        function nextImage() {
-            if (!currentProduct) return;
+        function goToSlide(index) {
+            const slider = document.getElementById('imageSlider');
+            if (!slider || !currentProduct) return;
             
-            currentImageIndex++;
-            if (currentImageIndex >= currentProduct.images.length) {
-                currentImageIndex = 0;
+            if (index >= 0 && index < currentProduct.images.length) {
+                currentImageIndex = index;
+                const slideWidth = slider.clientWidth;
+                slider.scrollTo({
+                    left: currentImageIndex * slideWidth,
+                    behavior: 'smooth'
+                });
+                updateActiveThumbnail(currentImageIndex);
             }
-            
-            updateMainImage();
         }
 
-        function changeImage(index) {
-            currentImageIndex = index;
-            updateMainImage();
-        }
-
-        function updateMainImage() {
-            if (!currentProduct) return;
-            
-            const mainImage = document.getElementById('mainImage');
-            if (mainImage) {
-                mainImage.src = currentProduct.images[currentImageIndex];
-            }
-            
-            document.querySelectorAll('.thumbnail').forEach((thumb, index) => {
-                if (index === currentImageIndex) {
+        function updateActiveThumbnail(index) {
+            document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+                if (i === index) {
                     thumb.classList.add('active');
                 } else {
                     thumb.classList.remove('active');
                 }
             });
         }
+
+        // ============================================
+        // Fullscreen Image Functions
+        // ============================================
+        function openFullscreen(index) {
+            if (!currentProduct) return;
+            
+            fullscreenCurrentIndex = index;
+            const overlay = document.getElementById('fullscreenOverlay');
+            const slider = document.getElementById('fullscreenSlider');
+            
+            // إنشاء شرائح الصور للعرض الكامل
+            const slides = currentProduct.images.map((img, i) => 
+                `<div class="fullscreen-slide">
+                    <img src="${img}" alt="${currentProduct.name}">
+                </div>`
+            ).join('');
+            
+            slider.innerHTML = slides;
+            overlay.classList.add('active');
+            
+            // التمرير إلى الصورة المحددة
+            setTimeout(() => {
+                const slideWidth = slider.clientWidth;
+                slider.scrollTo({
+                    left: index * slideWidth,
+                    behavior: 'auto'
+                });
+            }, 100);
+        }
+
+        function closeFullscreen() {
+            document.getElementById('fullscreenOverlay').classList.remove('active');
+        }
+
+        function fullscreenPrevImage() {
+            const slider = document.getElementById('fullscreenSlider');
+            if (!slider || !currentProduct) return;
+            
+            fullscreenCurrentIndex--;
+            if (fullscreenCurrentIndex < 0) {
+                fullscreenCurrentIndex = currentProduct.images.length - 1;
+            }
+            
+            const slideWidth = slider.clientWidth;
+            slider.scrollTo({
+                left: fullscreenCurrentIndex * slideWidth,
+                behavior: 'smooth'
+            });
+        }
+
+        function fullscreenNextImage() {
+            const slider = document.getElementById('fullscreenSlider');
+            if (!slider || !currentProduct) return;
+            
+            fullscreenCurrentIndex++;
+            if (fullscreenCurrentIndex >= currentProduct.images.length) {
+                fullscreenCurrentIndex = 0;
+            }
+            
+            const slideWidth = slider.clientWidth;
+            slider.scrollTo({
+                left: fullscreenCurrentIndex * slideWidth,
+                behavior: 'smooth'
+            });
+        }
+
+        // ============================================
+        // دعم التمرير بالاصبع في الفول سكرين
+        // ============================================
+        document.addEventListener('touchstart', e => {
+            if (!document.getElementById('fullscreenOverlay').classList.contains('active')) return;
+            
+            const touch = e.changedTouches[0];
+            window.fullscreenTouchStart = touch.screenX;
+        }, false);
+
+        document.addEventListener('touchend', e => {
+            if (!document.getElementById('fullscreenOverlay').classList.contains('active')) return;
+            if (!window.fullscreenTouchStart) return;
+            
+            const touchEnd = e.changedTouches[0].screenX;
+            const diff = window.fullscreenTouchStart - touchEnd;
+            
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    fullscreenNextImage();
+                } else {
+                    fullscreenPrevImage();
+                }
+            }
+            
+            delete window.fullscreenTouchStart;
+        }, false);
 
         // ============================================
         // دوال الألوان
