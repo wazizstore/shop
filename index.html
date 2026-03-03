@@ -26,9 +26,6 @@
             --shadow: 0 10px 30px rgba(0,0,0,0.1);
             --radius: 15px;
             --transition: all 0.3s ease;
-            --ramadan-gold: #ffd700;
-            --ramadan-blue: #1e3c72;
-            --ramadan-purple: #6a1b9a;
         }
 
         body {
@@ -48,94 +45,9 @@
             padding: 0 20px;
         }
 
-        /* ========== تأثيرات رمضانية - هلال معلق ========== */
-        .ramadan-crescent {
-            position: fixed;
-            top: -10px;
-            left: 20px;
-            font-size: 45px;
-            color: var(--ramadan-gold);
-            z-index: 1002;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-            transform-origin: top center;
-            animation: hang 3s ease-in-out infinite;
-        }
-
-        @keyframes hang {
-            0%, 100% { transform: rotate(0deg) translateY(0); }
-            25% { transform: rotate(2deg) translateY(3px); }
-            75% { transform: rotate(-2deg) translateY(3px); }
-        }
-
-        .crescent-string {
-            position: fixed;
-            top: 0;
-            left: 45px;
-            width: 2px;
-            height: 40px;
-            background: linear-gradient(to bottom, var(--ramadan-gold), transparent);
-            z-index: 1001;
-            animation: swingString 3s ease-in-out infinite;
-        }
-
-        @keyframes swingString {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(2deg); }
-            75% { transform: rotate(-2deg); }
-        }
-
-        /* ========== النجوم الحقيقية ========== */
-        .ramadan-stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.6;
-        }
-
-        .real-star {
-            position: absolute;
-            background: transparent;
-            width: 3px;
-            height: 3px;
-            box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8);
-            animation: twinkle 3s ease-in-out infinite;
-        }
-
-        .real-star::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            width: 7px;
-            height: 7px;
-            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%);
-            border-radius: 50%;
-            opacity: 0.7;
-        }
-
-        .real-star::after {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            width: 11px;
-            height: 11px;
-            background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, rgba(255,215,0,0) 70%);
-            border-radius: 50%;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.5); }
-        }
-
         /* ========== SHUFFLING BAR ========== */
         .shuffling-bar {
-            background: linear-gradient(135deg, var(--ramadan-purple), var(--ramadan-blue));
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
             color: white;
             padding: 12px 0;
             position: relative;
@@ -147,7 +59,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             font-weight: 700;
             width: 100%;
-            border-bottom: 2px solid var(--ramadan-gold);
         }
 
         .shuffling-content {
@@ -165,7 +76,7 @@
         }
 
         .shuffling-item i {
-            color: var(--ramadan-gold);
+            color: #fff;
         }
 
         @keyframes shuffle {
@@ -183,7 +94,6 @@
             top: 0;
             z-index: 1000;
             width: 100%;
-            border-bottom: 2px solid var(--ramadan-gold);
         }
 
         .header-content {
@@ -199,7 +109,7 @@
         }
 
         .logo span {
-            color: var(--ramadan-gold);
+            color: var(--accent);
         }
 
         .cart-icon {
@@ -218,7 +128,7 @@
         }
 
         .cart-count {
-            background: var(--ramadan-gold);
+            background: var(--accent);
             color: black;
             border-radius: 50%;
             width: 20px;
@@ -241,7 +151,6 @@
             padding: 80px 0;
             text-align: center;
             margin-bottom: 40px;
-            border-bottom: 2px solid var(--ramadan-gold);
         }
 
         .hero h2 {
@@ -271,24 +180,24 @@
             display: block;
             width: 60px;
             height: 3px;
-            background: var(--ramadan-gold);
+            background: var(--accent);
             margin: 15px auto 0;
         }
 
-        /* تعديل عرض المنتجات - منتجان في كل صف مع حجم أكبر */
+        /* ===== تحسين عرض المنتجات للهاتف - منتجان في كل صف بحجم كبير ===== */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 12px;
             margin-bottom: 40px;
-            padding: 0 15px;
+            padding: 0 8px;
         }
 
-        /* تحسين للشاشات الأصغر */
-        @media (max-width: 480px) {
+        /* للشاشات الأكبر */
+        @media (min-width: 768px) {
             .products-grid {
-                gap: 15px;
-                padding: 0 10px;
+                gap: 20px;
+                padding: 0 15px;
             }
         }
 
@@ -301,14 +210,16 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             position: relative;
-            border: 1px solid rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(0,0,0,0.05);
             width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.2);
-            border-color: var(--ramadan-gold);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
 
         .product-image {
@@ -333,17 +244,16 @@
         /* ========== OUT OF STOCK BADGE ========== */
         .out-of-stock-badge {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 8px;
+            left: 8px;
             background: rgba(255, 0, 0, 0.9);
             color: white;
-            padding: 5px 10px;
+            padding: 4px 8px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             z-index: 10;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            animation: pulse 2s infinite;
         }
 
         .out-of-stock-overlay {
@@ -362,25 +272,28 @@
         .out-of-stock-overlay span {
             background: rgba(255, 255, 255, 0.9);
             color: #ff0000;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 14px;
             transform: rotate(-15deg);
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
 
         .product-info {
-            padding: 15px 12px;
+            padding: 12px 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .product-name {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: var(--primary);
             line-height: 1.3;
-            height: 40px;
+            height: 36px;
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -390,19 +303,19 @@
         .price-container {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
+            gap: 8px;
+            margin-bottom: 6px;
             flex-wrap: wrap;
         }
 
         .original-price {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--gray);
             text-decoration: line-through;
         }
 
         .product-price {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--secondary);
             font-weight: 700;
         }
@@ -410,11 +323,38 @@
         .delivery-badge {
             background: #e8f5e9;
             color: #2e7d32;
-            padding: 4px 8px;
+            padding: 3px 6px;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 10px;
             display: inline-block;
-            margin-bottom: 8px;
+            margin-top: 4px;
+            width: fit-content;
+        }
+
+        /* تحسين للهاتف */
+        @media (max-width: 480px) {
+            .products-grid {
+                gap: 10px;
+                padding: 0 5px;
+            }
+            
+            .product-name {
+                font-size: 13px;
+                height: 34px;
+            }
+            
+            .product-price {
+                font-size: 15px;
+            }
+            
+            .original-price {
+                font-size: 11px;
+            }
+            
+            .delivery-badge {
+                font-size: 9px;
+                padding: 2px 5px;
+            }
         }
 
         /* ========== PRODUCT PAGE (FULL SCREEN) ========== */
@@ -451,7 +391,7 @@
             margin-bottom: 40px;
         }
 
-        /* ===== معرض الصور المحسن مع دعم كامل للتمرير ===== */
+        /* ===== معرض الصور المحسن مع تمرير كامل ===== */
         .product-gallery {
             display: flex;
             flex-direction: column;
@@ -491,7 +431,6 @@
             flex: 0 0 100%;
             scroll-snap-align: start;
             height: 100%;
-            cursor: pointer;
             position: relative;
         }
 
@@ -499,7 +438,31 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            pointer-events: none;
+        }
+
+        /* زر التكبير */
+        .zoom-icon {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            font-size: 22px;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .zoom-icon:hover {
+            background: white;
+            transform: scale(1.1);
         }
 
         .slider-arrow {
@@ -993,17 +956,6 @@
             display: flex;
         }
 
-        @keyframes slideUp {
-            from {
-                bottom: 0;
-                opacity: 0;
-            }
-            to {
-                bottom: 30px;
-                opacity: 1;
-            }
-        }
-
         /* ========== SUCCESS MESSAGE ========== */
         .success-message {
             background: linear-gradient(135deg, #4CAF50, #45a049);
@@ -1195,13 +1147,13 @@
             right: 20px;
             background: #25D366;
             color: white;
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
+            font-size: 28px;
             z-index: 1000;
             text-decoration: none;
             box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
@@ -1217,7 +1169,6 @@
             color: var(--white);
             padding: 40px 0 20px;
             margin-top: 40px;
-            border-top: 2px solid var(--ramadan-gold);
         }
 
         .footer-content {
@@ -1229,7 +1180,7 @@
 
         .footer-section h3 {
             margin-bottom: 15px;
-            color: var(--ramadan-gold);
+            color: var(--accent);
         }
 
         .footer-section p {
@@ -1314,22 +1265,10 @@
                 font-size: 20px;
             }
             
-            .product-name {
-                font-size: 14px;
-                height: 38px;
-            }
-            
-            .product-price {
-                font-size: 16px;
-            }
-            
-            .ramadan-crescent {
-                font-size: 35px;
-                left: 10px;
-            }
-            
-            .crescent-string {
-                left: 35px;
+            .zoom-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
             }
         }
 
@@ -1359,33 +1298,17 @@
                 font-size: 18px;
             }
             
-            .product-name {
-                font-size: 13px;
-                height: 36px;
-            }
-            
-            .product-price {
-                font-size: 15px;
-            }
-            
-            .price-container {
-                gap: 5px;
-            }
-            
-            .original-price {
-                font-size: 11px;
+            .whatsapp-button {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+                bottom: 15px;
+                right: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- هلال معلق -->
-    <div class="ramadan-crescent">🌙</div>
-    <div class="crescent-string"></div>
-
-    <!-- نجوم حقيقية قليلة -->
-    <div class="ramadan-stars" id="stars-container"></div>
-
     <!-- شريط متحرك -->
     <div class="shuffling-bar" id="shufflingBar">
         <div class="shuffling-content">
@@ -1514,45 +1437,11 @@
             </div>
             <div class="footer-bottom">
                 <p>© 2023 waziz shop. جميع الحقوق محفوظة - المغرب</p>
-                <p style="margin-top: 10px;">✨ رمضان كريم ✨</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // ============================================
-        // إنشاء النجوم الحقيقية (قليلة فقط)
-        // ============================================
-        function createRealStars() {
-            const starsContainer = document.getElementById('stars-container');
-            // فقط 8 نجوم (قليلة)
-            for (let i = 0; i < 8; i++) {
-                const star = document.createElement('div');
-                star.className = 'real-star';
-                
-                // توزيع عشوائي في الصفحة
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                
-                // أحجام مختلفة
-                const size = Math.random() * 4 + 2;
-                star.style.width = size + 'px';
-                star.style.height = size + 'px';
-                
-                // تأخير مختلف للوميض
-                star.style.animationDelay = Math.random() * 5 + 's';
-                
-                // ألوان مختلفة للنجوم (ذهبي وأبيض)
-                if (Math.random() > 0.5) {
-                    star.style.boxShadow = '0 0 12px 3px rgba(255, 215, 0, 0.9)';
-                } else {
-                    star.style.boxShadow = '0 0 12px 3px rgba(255, 255, 255, 0.9)';
-                }
-                
-                starsContainer.appendChild(star);
-            }
-        }
-
         // ============================================
         // المنتجات
         // ============================================
@@ -1614,10 +1503,10 @@
             },
             {
                 id: 4,
-                name: "JACKET NIKE DOUBLE FAS",
+                name: "Dodone nike",
                 price: "270",
                 originalPrice: "350",
-                description: "جاكيت NIKE DOUBLE FAS أصلية بتصميم عصري ومريح - جودة عالية وخامة ممتازة",
+                description: "Dodone nike أصلية بتصميم عصري ومريح - جودة عالية وخامة ممتازة",
                 images: [
                     "1770405531_1000496322.jpg",
                     "1770405531_1000496321.jpg"
@@ -1626,7 +1515,7 @@
                     { name: "أسود", class: "black" }
                 ],
                 sizes: ["m", "l", "xl"],
-                inStock: true
+                inStock: true  // تم تغييرها إلى true
             },
             {
                 id: 5,
@@ -1755,6 +1644,7 @@
         let selectedSize = '';
         let currentImageIndex = 0;
         let imageSlider = null;
+        let fullscreenCurrentIndex = 0;
 
         // ============================================
         // عرض الصفحة الرئيسية
@@ -1767,8 +1657,8 @@
             mainContent.innerHTML = `
                 <section class="hero">
                     <div class="container">
-                        <h2>✨ رمضان كريم ✨</h2>
-                        <p>أحدث صيحات الموضة في المغرب بأفضل الأسعار بالدرهم المغربي</p>
+                        <h2>أحدث صيحات الموضة في المغرب</h2>
+                        <p>تسوق أحدث المجموعات من الملابس والإكسسوارات بأفضل الأسعار بالدرهم المغربي</p>
                     </div>
                 </section>
 
@@ -1827,7 +1717,7 @@
         }
 
         // ============================================
-        // عرض صفحة المنتج (Full Screen)
+        // عرض صفحة المنتج
         // ============================================
         function viewProduct(productId) {
             const product = products.find(p => p.id === productId);
@@ -1840,7 +1730,7 @@
 
             const mainContent = document.getElementById('mainContent');
             
-            // إنشاء شرائح الصور للتمرير
+            // إنشاء شرائح الصور
             const imageSlides = product.images.map((img, index) => 
                 `<div class="main-image-slide" data-index="${index}">
                     <img src="${img}" alt="${product.name} - صورة ${index + 1}">
@@ -1854,6 +1744,7 @@
                 </div>`
             ).join('');
 
+            // إنشاء خيارات الألوان
             const colorOptions = product.colors.map(color => {
                 const isDisabled = color.inStock === false;
                 const colorName = typeof color === 'string' ? color : color.name;
@@ -1864,6 +1755,7 @@
                     title="${colorName}"></div>`;
             }).join('');
 
+            // إنشاء خيارات القياسات
             const sizeOptions = product.sizes.map(size => 
                 `<option value="${size}">${size.toUpperCase()}</option>`
             ).join('');
@@ -1886,6 +1778,9 @@
                                     </div>
                                     <div class="slider-arrow right" onclick="slideImage(1)">
                                         <i class="fas fa-chevron-left"></i>
+                                    </div>
+                                    <div class="zoom-icon" onclick="openFullscreenFromCurrent()">
+                                        <i class="fas fa-expand"></i>
                                     </div>
                                 </div>
                                 <div class="image-thumbnails" id="imageThumbnails">
@@ -1991,28 +1886,12 @@
             imageSlider = document.getElementById('imageSlider');
             if (!imageSlider) return;
             
-            // إضافة مستمع حدث للتمرير
             imageSlider.addEventListener('scroll', handleSliderScroll);
             
-            // إضافة مستمعات لمساعدي التمرير بالاصبع
             let touchStartX = 0;
-            let touchEndX = 0;
             
             imageSlider.addEventListener('touchstart', (e) => {
                 touchStartX = e.changedTouches[0].screenX;
-            });
-            
-            imageSlider.addEventListener('touchend', (e) => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSliderSwipe(touchStartX, touchEndX);
-            });
-            
-            // إضافة حدث النقر على الصور لعرضها بالكامل
-            const slides = imageSlider.querySelectorAll('.main-image-slide');
-            slides.forEach((slide, index) => {
-                slide.addEventListener('click', () => {
-                    openFullscreen(currentProduct.images[index], index);
-                });
             });
         }
 
@@ -2023,19 +1902,9 @@
             const scrollPosition = imageSlider.scrollLeft;
             const newIndex = Math.round(scrollPosition / slideWidth);
             
-            if (newIndex !== currentImageIndex) {
+            if (newIndex !== currentImageIndex && newIndex >= 0 && newIndex < currentProduct.images.length) {
                 currentImageIndex = newIndex;
                 updateActiveThumbnail(currentImageIndex);
-            }
-        }
-
-        function handleSliderSwipe(startX, endX) {
-            const swipeThreshold = 50;
-            if (endX < startX - swipeThreshold) {
-                slideImage(1);
-            }
-            if (endX > startX + swipeThreshold) {
-                slideImage(-1);
             }
         }
 
@@ -2048,13 +1917,11 @@
                 if (!imageSlider) return;
             }
             
-            const slides = imageSlider.children;
             const slideWidth = imageSlider.clientWidth;
-            
             let newIndex = currentImageIndex + direction;
             
             if (newIndex < 0) newIndex = 0;
-            if (newIndex >= slides.length) newIndex = slides.length - 1;
+            if (newIndex >= currentProduct.images.length) newIndex = currentProduct.images.length - 1;
             
             imageSlider.scrollTo({
                 left: newIndex * slideWidth,
@@ -2095,10 +1962,12 @@
         // ============================================
         // Fullscreen Image
         // ============================================
-        let fullscreenCurrentIndex = 0;
+        function openFullscreenFromCurrent() {
+            fullscreenCurrentIndex = currentImageIndex;
+            openFullscreen(currentProduct.images[currentImageIndex]);
+        }
 
-        function openFullscreen(imageSrc, index) {
-            fullscreenCurrentIndex = index;
+        function openFullscreen(imageSrc) {
             const overlay = document.getElementById('fullscreenOverlay');
             const fullscreenImage = document.getElementById('fullscreenImage');
             fullscreenImage.src = imageSrc;
@@ -2198,10 +2067,8 @@
             const sizeSelect = document.getElementById('productSize');
             const unknownCheck = document.getElementById('unknownSizeCheck');
             
-            // المنتج 4 (JACKET NIKE DOUBLE FAS) لا يحتاج اختيار لون
-            if (currentProduct.id === 4) {
-                // لا نطلب اختيار اللون
-            } else {
+            // المنتج 4 (Dodone nike) لا يحتاج اختيار لون
+            if (currentProduct.id !== 4) {
                 if (!selectedColor) {
                     showToast('يرجى اختيار اللون');
                     return false;
@@ -2257,7 +2124,7 @@
                 return;
             }
 
-            // التحقق من اللون فقط للمنتجات التي تحتاج لون
+            // التحقق من اللون فقط للمنتجات التي تحتاج لون (باستثناء المنتج 4)
             if (currentProduct.id !== 4 && !selectedColor) {
                 showToast('يرجى اختيار اللون من الأعلى');
                 return;
@@ -2280,7 +2147,7 @@
             message += `┣━━ المنتج: ${currentProduct.name}\n`;
             message += `┣━━ السعر: ${currentProduct.price} درهم\n`;
             if (currentProduct.id !== 4) {
-                message += `┣━━ اللون: ${selectedColor || 'لم يختر'}\n`;
+                message += `┣━━ اللون: ${selectedColor}\n`;
             }
             message += `┗━━ القياس: ${selectedSize}\n\n`;
             message += `━━━━━━━━━━━━━━━━━━━━━\n`;
@@ -2505,7 +2372,6 @@
         // تهيئة الصفحة
         // ============================================
         document.addEventListener('DOMContentLoaded', () => {
-            createRealStars();
             renderHomePage();
             
             setInterval(() => {
