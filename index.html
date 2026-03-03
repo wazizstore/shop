@@ -51,15 +51,14 @@
         /* ========== تأثيرات رمضانية - هلال معلق ========== */
         .ramadan-crescent {
             position: fixed;
-            top: 70px;
+            top: -10px;
             left: 20px;
             font-size: 45px;
             color: var(--ramadan-gold);
-            z-index: 999;
+            z-index: 1002;
             filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
             transform-origin: top center;
             animation: hang 3s ease-in-out infinite;
-            pointer-events: none;
         }
 
         @keyframes hang {
@@ -70,14 +69,13 @@
 
         .crescent-string {
             position: fixed;
-            top: 40px;
+            top: 0;
             left: 45px;
             width: 2px;
-            height: 35px;
+            height: 40px;
             background: linear-gradient(to bottom, var(--ramadan-gold), transparent);
-            z-index: 998;
+            z-index: 1001;
             animation: swingString 3s ease-in-out infinite;
-            pointer-events: none;
         }
 
         @keyframes swingString {
@@ -213,7 +211,6 @@
             align-items: center;
             gap: 5px;
             transition: transform 0.2s ease;
-            z-index: 1001;
         }
 
         .cart-icon:hover {
@@ -278,6 +275,7 @@
             margin: 15px auto 0;
         }
 
+        /* تعديل عرض المنتجات - منتجان في كل صف مع حجم أكبر */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -286,6 +284,7 @@
             padding: 0 15px;
         }
 
+        /* تحسين للشاشات الأصغر */
         @media (max-width: 480px) {
             .products-grid {
                 gap: 15px;
@@ -331,6 +330,7 @@
             transform: scale(1.05);
         }
 
+        /* ========== OUT OF STOCK BADGE ========== */
         .out-of-stock-badge {
             position: absolute;
             top: 10px;
@@ -375,12 +375,12 @@
         }
 
         .product-name {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             margin-bottom: 8px;
             color: var(--primary);
             line-height: 1.3;
-            height: 42px;
+            height: 40px;
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -396,13 +396,13 @@
         }
 
         .original-price {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--gray);
             text-decoration: line-through;
         }
 
         .product-price {
-            font-size: 20px;
+            font-size: 18px;
             color: var(--secondary);
             font-weight: 700;
         }
@@ -451,7 +451,7 @@
             margin-bottom: 40px;
         }
 
-        /* ===== معرض الصور المحسن ===== */
+        /* ===== معرض الصور المحسن مع دعم كامل للتمرير ===== */
         .product-gallery {
             display: flex;
             flex-direction: column;
@@ -476,6 +476,11 @@
             -webkit-overflow-scrolling: touch;
             scroll-behavior: smooth;
             scrollbar-width: none;
+            cursor: grab;
+        }
+
+        .main-image-slider:active {
+            cursor: grabbing;
         }
 
         .main-image-slider::-webkit-scrollbar {
@@ -487,6 +492,7 @@
             scroll-snap-align: start;
             height: 100%;
             cursor: pointer;
+            position: relative;
         }
 
         .main-image-slide img {
@@ -555,8 +561,71 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            pointer-events: none;
         }
+
+        /* ===== Fullscreen Image Modal ===== */
+        .fullscreen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fullscreen-overlay.active {
+            display: flex;
+        }
+
+        .fullscreen-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .close-fullscreen {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 10001;
+            transition: transform 0.3s ease;
+        }
+
+        .close-fullscreen:hover {
+            transform: scale(1.2);
+        }
+
+        .fullscreen-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .fullscreen-arrow:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .fullscreen-arrow.left { left: 20px; }
+        .fullscreen-arrow.right { right: 20px; }
 
         .product-info-detail {
             padding: 20px;
@@ -1176,90 +1245,6 @@
             font-size: 12px;
         }
 
-        /* ========== FULLSCREEN IMAGE VIEWER ========== */
-        .fullscreen-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 10000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .fullscreen-overlay.active {
-            display: flex;
-        }
-
-        .fullscreen-slider {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
-        }
-
-        .fullscreen-slide {
-            flex: 0 0 100%;
-            scroll-snap-align: start;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .fullscreen-slide img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-        }
-
-        .close-fullscreen {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: white;
-            font-size: 40px;
-            cursor: pointer;
-            z-index: 10001;
-            transition: transform 0.3s ease;
-        }
-
-        .close-fullscreen:hover {
-            transform: scale(1.2);
-        }
-
-        .fullscreen-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10001;
-            color: white;
-            font-size: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .fullscreen-arrow:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .fullscreen-arrow.left { left: 20px; }
-        .fullscreen-arrow.right { right: 20px; }
-
         /* ========== RESPONSIVE ========== */
         @media (max-width: 992px) {
             .product-detail {
@@ -1330,24 +1315,21 @@
             }
             
             .product-name {
-                font-size: 15px;
-                height: 40px;
+                font-size: 14px;
+                height: 38px;
             }
             
             .product-price {
-                font-size: 18px;
+                font-size: 16px;
             }
             
             .ramadan-crescent {
                 font-size: 35px;
                 left: 10px;
-                top: 60px;
             }
             
             .crescent-string {
                 left: 35px;
-                top: 30px;
-                height: 35px;
             }
         }
 
@@ -1378,12 +1360,12 @@
             }
             
             .product-name {
-                font-size: 14px;
-                height: 38px;
+                font-size: 13px;
+                height: 36px;
             }
             
             .product-price {
-                font-size: 17px;
+                font-size: 15px;
             }
             
             .price-container {
@@ -1391,7 +1373,7 @@
             }
             
             .original-price {
-                font-size: 12px;
+                font-size: 11px;
             }
         }
     </style>
@@ -1493,12 +1475,12 @@
     <!-- Modal -->
     <div id="modal" style="display: none;"></div>
 
-    <!-- Fullscreen Image Viewer -->
+    <!-- Fullscreen Image Modal -->
     <div class="fullscreen-overlay" id="fullscreenOverlay">
         <span class="close-fullscreen" onclick="closeFullscreen()">&times;</span>
-        <div class="fullscreen-arrow left" onclick="fullscreenPrevImage()">❮</div>
-        <div class="fullscreen-arrow right" onclick="fullscreenNextImage()">❯</div>
-        <div class="fullscreen-slider" id="fullscreenSlider"></div>
+        <div class="fullscreen-arrow left" onclick="fullscreenPrevImage()">‹</div>
+        <div class="fullscreen-arrow right" onclick="fullscreenNextImage()">›</div>
+        <img src="" alt="Fullscreen" class="fullscreen-image" id="fullscreenImage">
     </div>
 
     <!-- إشعار Toast -->
@@ -1539,20 +1521,28 @@
 
     <script>
         // ============================================
-        // إنشاء النجوم الحقيقية
+        // إنشاء النجوم الحقيقية (قليلة فقط)
         // ============================================
         function createRealStars() {
             const starsContainer = document.getElementById('stars-container');
+            // فقط 8 نجوم (قليلة)
             for (let i = 0; i < 8; i++) {
                 const star = document.createElement('div');
                 star.className = 'real-star';
+                
+                // توزيع عشوائي في الصفحة
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
+                
+                // أحجام مختلفة
                 const size = Math.random() * 4 + 2;
                 star.style.width = size + 'px';
                 star.style.height = size + 'px';
+                
+                // تأخير مختلف للوميض
                 star.style.animationDelay = Math.random() * 5 + 's';
                 
+                // ألوان مختلفة للنجوم (ذهبي وأبيض)
                 if (Math.random() > 0.5) {
                     star.style.boxShadow = '0 0 12px 3px rgba(255, 215, 0, 0.9)';
                 } else {
@@ -1564,7 +1554,7 @@
         }
 
         // ============================================
-        // المنتجات - تم إضافة JACKET NIKE DOUBLE FAS
+        // المنتجات
         // ============================================
         const products = [
             {
@@ -1624,10 +1614,10 @@
             },
             {
                 id: 4,
-                name: "Dodone nike",
+                name: "JACKET NIKE DOUBLE FAS",
                 price: "270",
                 originalPrice: "350",
-                description: "Dodone nike أصلية بتصميم عصري ومريح - جودة عالية وخامة ممتازة",
+                description: "جاكيت NIKE DOUBLE FAS أصلية بتصميم عصري ومريح - جودة عالية وخامة ممتازة",
                 images: [
                     "1770405531_1000496322.jpg",
                     "1770405531_1000496321.jpg"
@@ -1753,7 +1743,7 @@
                 ],
                 sizes: ["m", "l", "xl"],
                 inStock: true
-            },
+            }
         ];
 
         // ============================================
@@ -1764,7 +1754,7 @@
         let selectedColor = '';
         let selectedSize = '';
         let currentImageIndex = 0;
-        let fullscreenCurrentIndex = 0;
+        let imageSlider = null;
 
         // ============================================
         // عرض الصفحة الرئيسية
@@ -1837,7 +1827,7 @@
         }
 
         // ============================================
-        // عرض صفحة المنتج
+        // عرض صفحة المنتج (Full Screen)
         // ============================================
         function viewProduct(productId) {
             const product = products.find(p => p.id === productId);
@@ -1850,9 +1840,9 @@
 
             const mainContent = document.getElementById('mainContent');
             
-            // إنشاء شرائح الصور
+            // إنشاء شرائح الصور للتمرير
             const imageSlides = product.images.map((img, index) => 
-                `<div class="main-image-slide" onclick="openFullscreen(${index})">
+                `<div class="main-image-slide" data-index="${index}">
                     <img src="${img}" alt="${product.name} - صورة ${index + 1}">
                 </div>`
             ).join('');
@@ -1864,7 +1854,6 @@
                 </div>`
             ).join('');
 
-            // إنشاء خيارات الألوان
             const colorOptions = product.colors.map(color => {
                 const isDisabled = color.inStock === false;
                 const colorName = typeof color === 'string' ? color : color.name;
@@ -1987,59 +1976,110 @@
                 </div>
             `;
 
-            // إضافة مستمع حدث للتمرير
+            // تهيئة الـ slider
             setTimeout(() => {
-                const slider = document.getElementById('imageSlider');
-                if (slider) {
-                    slider.addEventListener('scroll', function() {
-                        const slideWidth = this.clientWidth;
-                        const scrollPosition = this.scrollLeft;
-                        const newIndex = Math.round(scrollPosition / slideWidth);
-                        
-                        if (newIndex !== currentImageIndex) {
-                            currentImageIndex = newIndex;
-                            updateActiveThumbnail(currentImageIndex);
-                        }
-                    });
-                }
+                initImageSlider();
             }, 100);
 
             window.scrollTo(0, 0);
         }
 
         // ============================================
-        // دوال التنقل بين الصور
+        // تهيئة معرض الصور
         // ============================================
-        function slideImage(direction) {
-            const slider = document.getElementById('imageSlider');
-            if (!slider || !currentProduct) return;
+        function initImageSlider() {
+            imageSlider = document.getElementById('imageSlider');
+            if (!imageSlider) return;
             
-            const slideWidth = slider.clientWidth;
-            const newIndex = currentImageIndex + direction;
+            // إضافة مستمع حدث للتمرير
+            imageSlider.addEventListener('scroll', handleSliderScroll);
             
-            if (newIndex >= 0 && newIndex < currentProduct.images.length) {
-                currentImageIndex = newIndex;
-                slider.scrollTo({
-                    left: currentImageIndex * slideWidth,
-                    behavior: 'smooth'
+            // إضافة مستمعات لمساعدي التمرير بالاصبع
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            imageSlider.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            imageSlider.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSliderSwipe(touchStartX, touchEndX);
+            });
+            
+            // إضافة حدث النقر على الصور لعرضها بالكامل
+            const slides = imageSlider.querySelectorAll('.main-image-slide');
+            slides.forEach((slide, index) => {
+                slide.addEventListener('click', () => {
+                    openFullscreen(currentProduct.images[index], index);
                 });
+            });
+        }
+
+        function handleSliderScroll() {
+            if (!imageSlider) return;
+            
+            const slideWidth = imageSlider.clientWidth;
+            const scrollPosition = imageSlider.scrollLeft;
+            const newIndex = Math.round(scrollPosition / slideWidth);
+            
+            if (newIndex !== currentImageIndex) {
+                currentImageIndex = newIndex;
                 updateActiveThumbnail(currentImageIndex);
             }
         }
 
-        function goToSlide(index) {
-            const slider = document.getElementById('imageSlider');
-            if (!slider || !currentProduct) return;
-            
-            if (index >= 0 && index < currentProduct.images.length) {
-                currentImageIndex = index;
-                const slideWidth = slider.clientWidth;
-                slider.scrollTo({
-                    left: currentImageIndex * slideWidth,
-                    behavior: 'smooth'
-                });
-                updateActiveThumbnail(currentImageIndex);
+        function handleSliderSwipe(startX, endX) {
+            const swipeThreshold = 50;
+            if (endX < startX - swipeThreshold) {
+                slideImage(1);
             }
+            if (endX > startX + swipeThreshold) {
+                slideImage(-1);
+            }
+        }
+
+        // ============================================
+        // دوال التنقل بين الصور
+        // ============================================
+        function slideImage(direction) {
+            if (!imageSlider) {
+                imageSlider = document.getElementById('imageSlider');
+                if (!imageSlider) return;
+            }
+            
+            const slides = imageSlider.children;
+            const slideWidth = imageSlider.clientWidth;
+            
+            let newIndex = currentImageIndex + direction;
+            
+            if (newIndex < 0) newIndex = 0;
+            if (newIndex >= slides.length) newIndex = slides.length - 1;
+            
+            imageSlider.scrollTo({
+                left: newIndex * slideWidth,
+                behavior: 'smooth'
+            });
+            
+            currentImageIndex = newIndex;
+            updateActiveThumbnail(currentImageIndex);
+        }
+
+        function goToSlide(index) {
+            if (!imageSlider) {
+                imageSlider = document.getElementById('imageSlider');
+                if (!imageSlider) return;
+            }
+            
+            const slideWidth = imageSlider.clientWidth;
+            
+            imageSlider.scrollTo({
+                left: index * slideWidth,
+                behavior: 'smooth'
+            });
+            
+            currentImageIndex = index;
+            updateActiveThumbnail(index);
         }
 
         function updateActiveThumbnail(index) {
@@ -2053,33 +2093,16 @@
         }
 
         // ============================================
-        // Fullscreen Image Functions
+        // Fullscreen Image
         // ============================================
-        function openFullscreen(index) {
-            if (!currentProduct) return;
-            
+        let fullscreenCurrentIndex = 0;
+
+        function openFullscreen(imageSrc, index) {
             fullscreenCurrentIndex = index;
             const overlay = document.getElementById('fullscreenOverlay');
-            const slider = document.getElementById('fullscreenSlider');
-            
-            // إنشاء شرائح الصور للعرض الكامل
-            const slides = currentProduct.images.map((img, i) => 
-                `<div class="fullscreen-slide">
-                    <img src="${img}" alt="${currentProduct.name}">
-                </div>`
-            ).join('');
-            
-            slider.innerHTML = slides;
+            const fullscreenImage = document.getElementById('fullscreenImage');
+            fullscreenImage.src = imageSrc;
             overlay.classList.add('active');
-            
-            // التمرير إلى الصورة المحددة
-            setTimeout(() => {
-                const slideWidth = slider.clientWidth;
-                slider.scrollTo({
-                    left: index * slideWidth,
-                    behavior: 'auto'
-                });
-            }, 100);
         }
 
         function closeFullscreen() {
@@ -2087,64 +2110,22 @@
         }
 
         function fullscreenPrevImage() {
-            const slider = document.getElementById('fullscreenSlider');
-            if (!slider || !currentProduct) return;
-            
+            if (!currentProduct) return;
             fullscreenCurrentIndex--;
             if (fullscreenCurrentIndex < 0) {
                 fullscreenCurrentIndex = currentProduct.images.length - 1;
             }
-            
-            const slideWidth = slider.clientWidth;
-            slider.scrollTo({
-                left: fullscreenCurrentIndex * slideWidth,
-                behavior: 'smooth'
-            });
+            document.getElementById('fullscreenImage').src = currentProduct.images[fullscreenCurrentIndex];
         }
 
         function fullscreenNextImage() {
-            const slider = document.getElementById('fullscreenSlider');
-            if (!slider || !currentProduct) return;
-            
+            if (!currentProduct) return;
             fullscreenCurrentIndex++;
             if (fullscreenCurrentIndex >= currentProduct.images.length) {
                 fullscreenCurrentIndex = 0;
             }
-            
-            const slideWidth = slider.clientWidth;
-            slider.scrollTo({
-                left: fullscreenCurrentIndex * slideWidth,
-                behavior: 'smooth'
-            });
+            document.getElementById('fullscreenImage').src = currentProduct.images[fullscreenCurrentIndex];
         }
-
-        // ============================================
-        // دعم التمرير بالاصبع في الفول سكرين
-        // ============================================
-        document.addEventListener('touchstart', e => {
-            if (!document.getElementById('fullscreenOverlay').classList.contains('active')) return;
-            
-            const touch = e.changedTouches[0];
-            window.fullscreenTouchStart = touch.screenX;
-        }, false);
-
-        document.addEventListener('touchend', e => {
-            if (!document.getElementById('fullscreenOverlay').classList.contains('active')) return;
-            if (!window.fullscreenTouchStart) return;
-            
-            const touchEnd = e.changedTouches[0].screenX;
-            const diff = window.fullscreenTouchStart - touchEnd;
-            
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) {
-                    fullscreenNextImage();
-                } else {
-                    fullscreenPrevImage();
-                }
-            }
-            
-            delete window.fullscreenTouchStart;
-        }, false);
 
         // ============================================
         // دوال الألوان
@@ -2217,10 +2198,9 @@
             const sizeSelect = document.getElementById('productSize');
             const unknownCheck = document.getElementById('unknownSizeCheck');
             
-            // إذا كان المنتج هو JACKET NIKE DOUBLE FAS (id 11) أو أي منتج بلون واحد فقط
-            if (currentProduct.id === 11 || currentProduct.colors.length === 1) {
-                // لا نحتاج للتحقق من اللون
-                selectedColor = currentProduct.colors[0].name; // تعيين اللون تلقائياً
+            // المنتج 4 (JACKET NIKE DOUBLE FAS) لا يحتاج اختيار لون
+            if (currentProduct.id === 4) {
+                // لا نطلب اختيار اللون
             } else {
                 if (!selectedColor) {
                     showToast('يرجى اختيار اللون');
@@ -2253,7 +2233,7 @@
                 id: currentProduct.id,
                 name: currentProduct.name,
                 price: currentProduct.price,
-                color: selectedColor,
+                color: selectedColor || 'أسود', // إذا لم يختر لون، استخدم أسود افتراضي
                 size: selectedSize
             });
 
@@ -2277,18 +2257,14 @@
                 return;
             }
 
-            // إذا كان المنتج هو JACKET NIKE DOUBLE FAS (id 11) أو أي منتج بلون واحد فقط
-            if (currentProduct.id === 11 || currentProduct.colors.length === 1) {
-                selectedColor = currentProduct.colors[0].name; // تعيين اللون تلقائياً
-            } else {
-                if (!selectedColor) {
-                    showToast('يرجى اختيار اللون');
-                    return;
-                }
+            // التحقق من اللون فقط للمنتجات التي تحتاج لون
+            if (currentProduct.id !== 4 && !selectedColor) {
+                showToast('يرجى اختيار اللون من الأعلى');
+                return;
             }
 
             if (!selectedSize) {
-                showToast('يرجى اختيار القياس');
+                showToast('يرجى اختيار القياس من الأعلى');
                 return;
             }
 
@@ -2303,7 +2279,9 @@
             message += `🛒 **تفاصيل الطلب:**\n`;
             message += `┣━━ المنتج: ${currentProduct.name}\n`;
             message += `┣━━ السعر: ${currentProduct.price} درهم\n`;
-            message += `┣━━ اللون: ${selectedColor}\n`;
+            if (currentProduct.id !== 4) {
+                message += `┣━━ اللون: ${selectedColor || 'لم يختر'}\n`;
+            }
             message += `┗━━ القياس: ${selectedSize}\n\n`;
             message += `━━━━━━━━━━━━━━━━━━━━━\n`;
             message += `⏱️ **تاريخ الطلب:** ${new Date().toLocaleString('ar-MA')}\n`;
@@ -2396,7 +2374,7 @@
                         <div class="cart-item-info">
                             <div class="cart-item-name">${item.name}</div>
                             <div class="cart-item-details">
-                                اللون: ${item.color} | ${item.size}
+                                ${item.color ? `اللون: ${item.color} | ` : ''}${item.size}
                             </div>
                         </div>
                         <div class="cart-item-price">${item.price} درهم</div>
@@ -2433,7 +2411,7 @@
                     <div class="checkout-item">
                         <div>
                             <strong>${item.name}</strong><br>
-                            <small>اللون: ${item.color} | ${item.size}</small>
+                            <small>${item.color ? `اللون: ${item.color} | ` : ''}${item.size}</small>
                         </div>
                         <div>${item.price} درهم</div>
                     </div>
@@ -2475,7 +2453,7 @@
                 total += parseInt(item.price);
                 message += `┣━━ المنتج ${index + 1}: ${item.name}\n`;
                 message += `┃   ┣━━ السعر: ${item.price} درهم\n`;
-                message += `┃   ┣━━ اللون: ${item.color}\n`;
+                if (item.color) message += `┃   ┣━━ اللون: ${item.color}\n`;
                 message += `┃   ┗━━ القياس: ${item.size}\n`;
             });
 
