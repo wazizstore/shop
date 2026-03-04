@@ -1709,10 +1709,11 @@
         { name: "وردي", class: "pink", inStock: true },
         { name: "أخضر", class: "green", inStock: true },
         { name: "أحمر", class: "red", inStock: true },
-        { name: "بني فاتح", class: "marron-clair", inStock: true },
+        { name: "بني فاتح", class: "lightbrown", inStock: true },
         { name: "أزرق", class: "blue", inStock: true }
     ],
-    sizes: [], // <-- تم إضافتها هنا
+    sizes: [], // مصفوفة فارغة لإخفاء القياسات
+    noSizes: true, // خاصية مخصصة لإخفاء قسم القياسات بالكامل
     inStock: true
 }
         ]
@@ -2459,10 +2460,28 @@
             setInterval(() => {
                 document.getElementById('cartCount').textContent = cart.length;
             }, 1000);
-        });
+        });// تعديل عرض صفحة المنتج لإخفاء القياسات عندما لا تكون مطلوبة
+const originalViewProduct = viewProduct;
+viewProduct = function(productId) {
+    const product = products.find(p => p.id === productId);
+    
+    // استدعاء الدالة الأصلية أولاً
+    originalViewProduct(productId);
+    
+    // إذا كان المنتج لا يحتاج قياسات، قم بإخفاء قسم القياسات
+    setTimeout(() => {
+        if (product.noSizes) {
+            const sizeSection = document.querySelector('.size-section');
+            if (sizeSection) {
+                sizeSection.style.display = 'none';
+            }
+        }
+    }, 200);
+}
     </script>
 </body>
 </html>
+
 
 
 
