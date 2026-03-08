@@ -2436,16 +2436,7 @@
     
     cart = [];
     document.getElementById('cartCount').textContent = '0';
-                  // ============================================
-// دالة إغلاق رسالة النجاح والعودة للتسوق
-// ============================================
-function closeSuccessAndReturn() {
-    // إغلاق نافذة الدفع
-    document.getElementById('cartCheckoutForm').style.display = 'none';
-    
-    // العودة للصفحة الرئيسية
-    renderHomePage();
-}
+        
 }
                 } else {
                     showToast('حدث خطأ في إرسال الطلب');
@@ -2468,6 +2459,7 @@ function closeSuccessAndReturn() {
     </script>
 </body>
 </html>
+
 
 
 
