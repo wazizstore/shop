@@ -2375,78 +2375,78 @@
             document.getElementById('cartCheckoutForm').classList.remove('active');
         }
 
-        async function submitCartOrder() {
-            const fullName = document.getElementById('checkoutName').value.trim();
-            const phone = document.getElementById('checkoutPhone').value.trim();
-            const city = document.getElementById('checkoutCity').value.trim();
-            const address = document.getElementById('checkoutAddress').value.trim();
+     async function submitCartOrder() {
+    const fullName = document.getElementById('checkoutName').value.trim();
+    const phone = document.getElementById('checkoutPhone').value.trim();
+    const city = document.getElementById('checkoutCity').value.trim();
+    const address = document.getElementById('checkoutAddress').value.trim();
 
-            if (!fullName || !phone || !city || !address) {
-                showToast('يرجى ملء جميع الحقول الإجبارية');
-                return;
-            }
+    if (!fullName || !phone || !city || !address) {
+        showToast('يرجى ملء جميع الحقول الإجبارية');
+        return;
+    }
 
-            let message = `🛍️ **طلب جديد من waziz shop - المغرب (من السلة)**\n\n`;
-            message += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
-            message += `👤 **معلومات العميل:**\n`;
-            message += `┣━━ اسم: ${fullName}\n`;
-            message += `┣━━ هاتف: ${phone}\n`;
-            message += `┣━━ مدينة: ${city}\n`;
-            message += `┗━━ عنوان: ${address}\n\n`;
-            message += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
-            message += `🛒 **المنتجات المطلوبة:**\n`;
+    let message = `🛍️ **طلب جديد من waziz shop - المغرب (من السلة)**\n\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
+    message += `👤 **معلومات العميل:**\n`;
+    message += `┣━━ اسم: ${fullName}\n`;
+    message += `┣━━ هاتف: ${phone}\n`;
+    message += `┣━━ مدينة: ${city}\n`;
+    message += `┗━━ عنوان: ${address}\n\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
+    message += `🛒 **المنتجات المطلوبة:**\n`;
 
-            let total = 0;
-            cart.forEach((item, index) => {
-                total += parseInt(item.price);
-                message += `┣━━ المنتج ${index + 1}: ${item.name}\n`;
-                message += `┃   ┣━━ السعر: ${item.price} درهم\n`;
-                message += `┃   ┣━━ اللون: ${item.color}\n`;
-                if (item.size !== 'قياس واحد') {
-                    message += `┃   ┗━━ القياس: ${item.size}\n`;
-                } else {
-                    message += `┃   ┗━━ (بدون قياس)\n`;
-                }
-            });
+    let total = 0;
+    cart.forEach((item, index) => {
+        total += parseInt(item.price);
+        message += `┣━━ المنتج ${index + 1}: ${item.name}\n`;
+        message += `┃   ┣━━ السعر: ${item.price} درهم\n`;
+        message += `┃   ┣━━ اللون: ${item.color}\n`;
+        if (item.size !== 'قياس واحد') {
+            message += `┃   ┗━━ القياس: ${item.size}\n`;
+        } else {
+            message += `┃   ┗━━ (بدون قياس)\n`;
+        }
+    });
 
-            message += `┗━━ **المجموع الكلي: ${total} درهم**\n\n`;
-            message += `━━━━━━━━━━━━━━━━━━━━━\n`;
-            message += `⏱️ **تاريخ الطلب:** ${new Date().toLocaleString('ar-MA')}\n`;
-            message += `━━━━━━━━━━━━━━━━━━━━━`;
+    message += `┗━━ **المجموع الكلي: ${total} درهم**\n\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `⏱️ **تاريخ الطلب:** ${new Date().toLocaleString('ar-MA')}\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━━`;
 
-            try {
-                const telegramToken = '8387473741:AAGHOI-oS7HXYFPSKfBmzotZ2PGCGNxhJiU';
-                const chatId = '6781508116';
-                const telegramUrl = `https://api.telegram.org/bot${telegramToken}/sendMessage`;
+    try {
+        const telegramToken = '8387473741:AAGHOI-oS7HXYFPSKfBmzotZ2PGCGNxhJiU';
+        const chatId = '6781508116';
+        const telegramUrl = `https://api.telegram.org/bot${telegramToken}/sendMessage`;
 
-                const response = await fetch(telegramUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: chatId,
-                        text: message,
-                        parse_mode: 'Markdown'
-                    })
-                });
+        const response = await fetch(telegramUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: message,
+                parse_mode: 'Markdown'
+            })
+        });
 
         if (response.ok) {
-    const checkoutContent = document.querySelector('.checkout-content');
-    const successMessage = document.createElement('div');
-    successMessage.className = 'success-message';
-    successMessage.innerHTML = '✅لقد تم تسجيل طلبك , سوف نتصل بك اليوم او غدا للتاكيد طلبك , المرجو ترك هاتفك في جانبك لكي اذا اتصلنا عليك تجيبنا,  لكي نرسل لك طلبك في الفور , بالنسبه للتوصيل سيكون في غضون واحد الى اربعه ايام على حسب المدينه التي تتواجد فيها , رمضان مبارك سعيد <span class="close-success" onclick="closeSuccessAndReturn()">&times;</span>';
-    
-    checkoutContent.innerHTML = '';
-    checkoutContent.appendChild(successMessage);
-    
-    cart = [];
-    document.getElementById('cartCount').textContent = '0';
+            const checkoutContent = document.querySelector('.checkout-content');
+            const successMessage = document.createElement('div');
+            successMessage.className = 'success-message';
+            successMessage.innerHTML = '✅لقد تم تسجيل طلبك , سوف نتصل بك اليوم او غدا للتاكيد طلبك , المرجو ترك هاتفك في جانبك لكي اذا اتصلنا عليك تجيبنا,  لكي نرسل لك طلبك في الفور , بالنسبه للتوصيل سيكون في غضون واحد الى اربعه ايام على حسب المدينه التي تتواجد فيها , رمضان مبارك سعيد <span class="close-success" onclick="closeCartSuccess()">&times;</span>';
+            
+            checkoutContent.innerHTML = '';
+            checkoutContent.appendChild(successMessage);
+            
+            cart = [];
+            document.getElementById('cartCount').textContent = '0';
+        } else {
+            showToast('حدث خطأ في إرسال الطلب');
+        }
+    } catch (error) {
+        showToast('حدث خطأ في الاتصال');
+    }
 
-      } else {
-                    showToast('حدث خطأ في إرسال الطلب');
-                }
-            } catch (error) {
-                showToast('حدث خطأ في الاتصال');
-            }
        // ============================================
 // دالة إغلاق رسالة النجاح والعودة للتسوق
 // ============================================
@@ -2457,7 +2457,24 @@ function closeSuccessAndReturn() {
     // العودة للصفحة الرئيسية
     renderHomePage();
 }
-        }
+     function closeSuccessAndReturn() {
+    // إخفاء نافذة الدفع
+    document.getElementById('cartCheckoutForm').style.display = 'none';
+    
+    // إخفاء أي نوافذ منبثقة أخرى
+    const modal = document.getElementById('modal');
+    if (modal) modal.style.display = 'none';
+    
+    // تحديث الصفحة الرئيسية
+    renderHomePage();
+    
+    // التأكد من ظهور السلة بشكل صحيح
+    const cartSidebar = document.getElementById('cartSidebar');
+    if (cartSidebar.classList.contains('open')) {
+        cartSidebar.classList.remove('open');
+    }
+}
+}
         
 
         // ============================================
@@ -2470,6 +2487,37 @@ function closeSuccessAndReturn() {
                 document.getElementById('cartCount').textContent = cart.length;
             }, 1000);
         });
+        // ============================================
+// دالة إغلاق رسالة النجاح والعودة للتسوق
+// ============================================
+function closeCartSuccess() {
+    // إغلاق نافذة الدفع تماماً
+    document.getElementById('cartCheckoutForm').style.display = 'none';
+    
+    // إغلاق السلة الجانبية إذا كانت مفتوحة
+    const cartSidebar = document.getElementById('cartSidebar');
+    if (cartSidebar.classList.contains('open')) {
+        cartSidebar.classList.remove('open');
+    }
+    
+    // العودة للصفحة الرئيسية
+    renderHomePage();
+    
+    // رسالة تأكيد للمستخدم (اختياري)
+    showToast('✅ تم العودة للصفحة الرئيسية');
+}
+// دالة مساعدة لإظهار الرسائل المنبثقة (إذا لم تكن موجودة)
+function showToast(message) {
+    const toast = document.getElementById('toastNotification');
+    if (!toast) return;
+    
+    const toastMessage = document.getElementById('toastMessage');
+    if (toastMessage) {
+        toastMessage.textContent = message;
+    }
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+}
     </script>
 </body>
 </html>
