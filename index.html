@@ -2425,17 +2425,28 @@
                     })
                 });
 
-                if (response.ok) {
-                    const checkoutContent = document.querySelector('.checkout-content');
-                    const successMessage = document.createElement('div');
-                    successMessage.className = 'success-message';
-                    successMessage.innerHTML = '✅لقد تم تسجيل طلبك , سوف نتصل بك اليوم او غدا للتاكيد طلبك , المرجو ترك هاتفك في جانبك لكي اذا اتصلنا عليك تجيبنا,  لكي نرسل لك طلبك في الفور , بالنسبه للتوصيل سيكون في غضون واحد الى اربعه ايام على حسب المدينه التي تتواجد فيها , رمضان مبارك سعيد <span class="close-success" onclick="renderHomePage()">&times;</span>';
-                    
-                    checkoutContent.innerHTML = '';
-                    checkoutContent.appendChild(successMessage);
-                    
-                    cart = [];
-                    document.getElementById('cartCount').textContent = '0';
+              if (response.ok) {
+    const checkoutContent = document.querySelector('.checkout-content');
+    const successMessage = document.createElement('div');
+    successMessage.className = 'success-message';
+    successMessage.innerHTML = '✅لقد تم تسجيل طلبك , سوف نتصل بك اليوم او غدا للتاكيد طلبك , المرجو ترك هاتفك في جانبك لكي اذا اتصلنا عليك تجيبنا,  لكي نرسل لك طلبك في الفور , بالنسبه للتوصيل سيكون في غضون واحد الى اربعه ايام على حسب المدينه التي تتواجد فيها , رمضان مبارك سعيد <span class="close-success" onclick="closeSuccessAndReturn()">&times;</span>';
+    
+    checkoutContent.innerHTML = '';
+    checkoutContent.appendChild(successMessage);
+    
+    cart = [];
+    document.getElementById('cartCount').textContent = '0';
+                  // ============================================
+// دالة إغلاق رسالة النجاح والعودة للتسوق
+// ============================================
+function closeSuccessAndReturn() {
+    // إغلاق نافذة الدفع
+    document.getElementById('cartCheckoutForm').style.display = 'none';
+    
+    // العودة للصفحة الرئيسية
+    renderHomePage();
+}
+}
                 } else {
                     showToast('حدث خطأ في إرسال الطلب');
                 }
@@ -2457,6 +2468,7 @@
     </script>
 </body>
 </html>
+
 
 
 
