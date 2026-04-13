@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* نفس الأنماط من index.html */
         * {
             margin: 0;
             padding: 0;
@@ -72,7 +73,6 @@
             padding: 0 16px;
         }
 
-        /* HEADER */
         header {
             position: sticky;
             top: 0;
@@ -136,14 +136,12 @@
             font-size: 15px;
             border-radius: 50%;
             transition: background var(--tf);
-            position: relative;
         }
 
         .hdr-btn:hover {
             background: rgba(255, 255, 255, .08);
         }
 
-        /* HERO */
         .hero {
             position: relative;
             background: var(--ink);
@@ -209,7 +207,6 @@
             font-weight: 300;
         }
 
-        /* PRODUCTS GRID */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -373,7 +370,6 @@
             font-size: 8.5px;
         }
 
-        /* SECTION HEADER */
         .sec-hdr {
             display: flex;
             align-items: center;
@@ -406,7 +402,6 @@
             font-weight: 500;
         }
 
-        /* ALERT MODAL */
         .alert-ov {
             position: fixed;
             inset: 0;
@@ -476,7 +471,6 @@
             background: var(--ink2);
         }
 
-        /* FOOTER */
         footer {
             background: var(--ink);
             color: rgba(255, 255, 255, .68);
@@ -551,7 +545,6 @@
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
     <div class="hdr">
         <div class="logo" onclick="window.location.href='index.html'">
@@ -566,23 +559,21 @@
     </div>
 </header>
 
-<!-- HERO SECTION -->
 <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-grain"></div>
     <div class="hero-c">
-        <p class="hero-eye">الموسم الجديد · 2026</p>
+        <p class="hero-eye">جميع المنتجات</p>
         <h2>تشكيلتنا<br><em>الكاملة</em></h2>
         <div class="hero-line"></div>
         <p class="hero-sub">توصيل مجاني · دفع عند الاستلام · جودة عالية</p>
     </div>
 </section>
 
-<!-- PRODUCTS GRID -->
 <div class="container">
     <div class="sec-hdr">
         <div>
-            <p class="sec-kicker">جميع المنتجات</p>
+            <p class="sec-kicker">تشكيلتنا</p>
             <h2 class="sec-title">المنتجات</h2>
         </div>
         <span class="sec-count" id="productCount"></span>
@@ -590,7 +581,6 @@
     <div class="grid" id="productsGrid"></div>
 </div>
 
-<!-- ALERT MODAL -->
 <div class="alert-ov" id="alertOv">
     <div class="alert-card">
         <div class="alert-icon" id="alertIcon">⚠️</div>
@@ -600,7 +590,6 @@
     </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
     <div class="footer-in">
         <div class="fb">
@@ -617,148 +606,29 @@
 </footer>
 
 <script>
-    /* ============================================
-       🧥 جميع المنتجات بنفس البيانات من الكود القديم
-    ============================================ */
     const products = [
-        {
-            id: 12,
-            name: "Ensemble likra mkhtat",
-            price: "219",
-            originalPrice: "259",
-            description: "اونصوبل ليكرا توب مليح",
-            cat: "clothes",
-            images: ["Untitled design (6).webp", "Untitled design (7).webp"],
-            colors: [{name:"أسود",class:"black",inStock:true},{name:"أبيض",class:"white",inStock:true}],
-            sizes: ["m","l","xl"],
-            inStock: true
-        },
-        {
-            id: 18,
-            name: "Ensemble t-shirt en SARWAL rido",
-            price: "219",
-            originalPrice: "299",
-            description: "Ensemble t-shirt en SARWAL rido - جودة عالية وتصميم عصري",
-            cat: "clothes",
-            images: ["photo_2026-03-27_23-27-34.webp", "photo_2026-03-27_23-27-39.webp", "photo_2026-03-27_23-27-47.webp"],
-            colors: [{name:"أسود",class:"black",inStock:true},{name:"أبيض",class:"white",inStock:false},{name:"بني",class:"brown",inStock:false},{name:"أزرق",class:"blue",inStock:false}],
-            sizes: ["m","l","xl"],
-            inStock: true
-        },
-        {
-            id: 17,
-            name: "ENSEMBLE RIDO BLA JIB (SHOMIS & chort)",
-            price: "199",
-            originalPrice: "299",
-            description: "SHOMIS & chort",
-            cat: "clothes",
-            images: ["Gemini_Generated_Image_tkom7utkom7utkom.webp", "Gemini_Generated_Image_3o2t5k3o2t5k3o2t.webp", "Gemini_Generated_Image_viswvyviswvyvisw.webp"],
-            colors: [{name:"أسود",class:"black",inStock:true},{name:"أبيض",class:"white",inStock:true},{name:"بني",class:"brown",inStock:true},{name:"فضي",class:"argent",inStock:true}],
-            sizes: ["m","l","xl"],
-            inStock: true
-        },
-        {
-            id: 10,
-            name: "Ensemble swid",
-            price: "219",
-            originalPrice: "249",
-            description: "اونصومبل توب غليض تاع البرد .",
-            cat: "clothes",
-            images: ["WhatsApp Image 2026-03-02 at 02.46.23.webp", "WhatsApp Image 2026-03-02 at 02.49.27.webp"],
-            colors: [{name:"أسود",class:"black",inStock:false},{name:"أبيض",class:"white",inStock:true}],
-            sizes: ["m","l","xl"],
-            inStock: true
-        },
-        {
-            id: 6,
-            name: "Sweet nike",
-            price: "199",
-            originalPrice: "299",
-            description: "المليح ثوب مونطوني مقطن.",
-            cat: "clothes",
-            images: ["Gemini_Generated_Image_o3s4y2o3s4y2o3s4.webp", "Gemini_Generated_Image_rk9k64rk9k64rk9k.webp", "Gemini_Generated_Image_dhbtp9dhbtp9dhbt.webp", "Gemini_Generated_Image_3vprbh3vprbh3vpr.webp"],
-            colors: [{name:"Vert",class:"vert",inStock:true},{name:"Noir",class:"black",inStock:false}],
-            sizes: ["m","l","xl"],
-            inStock: false
-        },
-        {
-            id: 9,
-            name: "Ensemble Rédou b sensla",
-            price: "229",
-            originalPrice: "299",
-            description: "اونصومبل توب غليض تاع البرد بالسنسلة مزيانة فيه جياب.",
-            cat: "clothes",
-            images: ["1760905019_IMG_0375.webp", "Untitled design (29).webp", "Untitled design (30).webp"],
-            colors: [{name:"Noir",class:"black",inStock:true},{name:"Marron clair",class:"marron-clair",inStock:true},{name:"Blanc",class:"white",inStock:true}],
-            sizes: ["m","l","xl","xxl"],
-            inStock: true
-        },
-        {
-            id: 13,
-            name: "Ensemble rido shomis et srwal",
-            price: "199",
-            originalPrice: "259",
-            description: "Ensemble rido shomis et srwal",
-            cat: "clothes",
-            images: ["1754474745_WhatsApp Image 2025-08-05 at 23.47.53 (2).webp", "1754474745_WhatsApp Image 2025-08-05 at 23.47.53.webp", "1754474745_WhatsApp Image 2025-08-05 at 23.47.53 (1).webp"],
-            colors: [{name:"أسود",class:"black",inStock:true},{name:"أبيض",class:"white",inStock:true},{name:"بني",class:"brown",inStock:true}],
-            sizes: ["m","l","xl"],
-            inStock: true
-        },
-        {
-            id: 14,
-            name: "Ensemble sweet likra simple",
-            price: "219",
-            originalPrice: "299",
-            description: "سويت ليكرا مليح.",
-            cat: "clothes",
-            images: ["3.webp", "1.webp", "2.webp"],
-            colors: [{name:"رمادي",class:"grey",inStock:true},{name:"أبيض",class:"white",inStock:true},{name:"أسود",class:"black",inStock:true}],
-            sizes: ["m","l","xl"],
-            inStock: true
-        },
-        {
-            id: 1,
-            name: "Ensemble nike",
-            price: "219",
-            originalPrice: "299",
-            description: "اونسومبل NIKE صيفي لرجال 💥 التوب مونطوني مقطن",
-            cat: "clothes",
-            images: ["1757028183_instagram-1756553237064.webp", "1757028183_IMG_20250830_122844_404 (1).webp"],
-            colors: [{name:"أخضر",class:"green",inStock:true},{name:"أسود",class:"black",inStock:true}],
-            sizes: ["m","l","xl"],
-            inStock: false
-        },
-        {
-            id: 15,
-            name: "ساعة رجالية Casio",
-            price: "199",
-            originalPrice: "230",
-            description: "✅ مصنوعة من مواد قوية مقاومة للصدمات والتآكل ✅ أناقة 💼 + مقاومة للماء 💧 + جودة عالية 🔋 ✅ مثالية للرجال",
-            cat: "watches",
-            images: ["photo_2025-10-25_21-42-52 (5).webp", "photo_2026-03-20_16-48-35.webp", "photo_2025-10-25_21-42-52 (2).webp", "photo_2025-10-25_21-42-52 (3).webp", "photo_2025-10-25_21-42-52 (4).webp"],
-            colors: [{name:"أزرق غامق",class:"darkblue",inStock:true},{name:"أزرق فاتح",class:"lightblue",inStock:true},{name:"أبيض",class:"white",inStock:true},{name:"أسود",class:"black",inStock:true},{name:"أخضر",class:"green",inStock:true}],
-            sizes: [],
-            noSizes: true,
-            inStock: true
-        }
+        { id: 12, name: "Ensemble likra mkhtat", price: "219", originalPrice: "259", description: "اونصوبل ليكرا توب مليح", cat: "clothes", images: ["Untitled design (6).webp", "Untitled design (7).webp"], sizes: ["m","l","xl"], inStock: true },
+        { id: 18, name: "Ensemble t-shirt en SARWAL rido", price: "219", originalPrice: "299", description: "Ensemble t-shirt en SARWAL rido - جودة عالية وتصميم عصري", cat: "clothes", images: ["photo_2026-03-27_23-27-34.webp", "photo_2026-03-27_23-27-39.webp", "photo_2026-03-27_23-27-47.webp"], sizes: ["m","l","xl"], inStock: true },
+        { id: 17, name: "ENSEMBLE RIDO BLA JIB (SHOMIS & chort)", price: "199", originalPrice: "299", description: "SHOMIS & chort", cat: "clothes", images: ["Gemini_Generated_Image_tkom7utkom7utkom.webp", "Gemini_Generated_Image_3o2t5k3o2t5k3o2t.webp", "Gemini_Generated_Image_viswvyviswvyvisw.webp"], sizes: ["m","l","xl"], inStock: true },
+        { id: 10, name: "Ensemble swid", price: "219", originalPrice: "249", description: "اونصومبل توب غليض تاع البرد .", cat: "clothes", images: ["WhatsApp Image 2026-03-02 at 02.46.23.webp", "WhatsApp Image 2026-03-02 at 02.49.27.webp"], sizes: ["m","l","xl"], inStock: true },
+        { id: 6, name: "Sweet nike", price: "199", originalPrice: "299", description: "المليح ثوب مونطوني مقطن.", cat: "clothes", images: ["Gemini_Generated_Image_o3s4y2o3s4y2o3s4.webp", "Gemini_Generated_Image_rk9k64rk9k64rk9k.webp", "Gemini_Generated_Image_dhbtp9dhbtp9dhbt.webp", "Gemini_Generated_Image_3vprbh3vprbh3vpr.webp"], sizes: ["m","l","xl"], inStock: false },
+        { id: 9, name: "Ensemble Rédou b sensla", price: "229", originalPrice: "299", description: "اونصومبل توب غليض تاع البرد بالسنسلة مزيانة فيه جياب.", cat: "clothes", images: ["1760905019_IMG_0375.webp", "Untitled design (29).webp", "Untitled design (30).webp"], sizes: ["m","l","xl","xxl"], inStock: true },
+        { id: 13, name: "Ensemble rido shomis et srwal", price: "199", originalPrice: "259", description: "Ensemble rido shomis et srwal", cat: "clothes", images: ["1754474745_WhatsApp Image 2025-08-05 at 23.47.53 (2).webp", "1754474745_WhatsApp Image 2025-08-05 at 23.47.53.webp", "1754474745_WhatsApp Image 2025-08-05 at 23.47.53 (1).webp"], sizes: ["m","l","xl"], inStock: true },
+        { id: 14, name: "Ensemble sweet likra simple", price: "219", originalPrice: "299", description: "سويت ليكرا مليح.", cat: "clothes", images: ["3.webp", "1.webp", "2.webp"], sizes: ["m","l","xl"], inStock: true },
+        { id: 1, name: "Ensemble nike", price: "219", originalPrice: "299", description: "اونسومبل NIKE صيفي لرجال 💥 التوب مونطوني مقطن", cat: "clothes", images: ["1757028183_instagram-1756553237064.webp", "1757028183_IMG_20250830_122844_404 (1).webp"], sizes: ["m","l","xl"], inStock: false },
+        { id: 15, name: "ساعة رجالية Casio", price: "199", originalPrice: "230", description: "✅ مصنوعة من مواد قوية مقاومة للصدمات والتآكل ✅ أناقة 💼 + مقاومة للماء 💧 + جودة عالية 🔋 ✅ مثالية للرجال", cat: "watches", images: ["photo_2025-10-25_21-42-52 (5).webp", "photo_2026-03-20_16-48-35.webp", "photo_2025-10-25_21-42-52 (2).webp", "photo_2025-10-25_21-42-52 (3).webp", "photo_2025-10-25_21-42-52 (4).webp"], sizes: [], inStock: true }
     ];
 
-    /* ============================================
-       عرض المنتجات في الشبكة
-    ============================================ */
     function renderProducts() {
         const grid = document.getElementById('productsGrid');
         const productCount = document.getElementById('productCount');
         
-        if (!grid) return;
-        
         productCount.textContent = products.length + ' منتج';
         grid.innerHTML = '';
         
-        const catLabels = { clothes: 'ملابس', electronics: 'إلكترونيات', bags: 'حقائب', watches: 'ساعات' };
+        const catLabels = { clothes: 'ملابس', watches: 'ساعات' };
         
-        products.forEach((p, i) => {
+        products.forEach(p => {
             const card = document.createElement('div');
             card.className = 'pcard';
             const disc = Math.round((1 - +p.price / +p.originalPrice) * 100);
@@ -774,7 +644,7 @@
                 <div class="pcard-body">
                     <div class="pcard-name">${p.name}</div>
                     <div class="pcard-price">
-                        <span class="pp-main">${p.price} <small style="font-size:9.5px;font-weight:500">درهم</small></span>
+                        <span class="pp-main">${p.price} <small>درهم</small></span>
                         <span class="pp-old">${p.originalPrice} درهم</span>
                     </div>
                     <span class="pcard-ship"><i class="fas fa-truck"></i> توصيل مجاني</span>
@@ -783,7 +653,7 @@
             
             if (p.inStock) {
                 card.onclick = () => {
-                    window.location.href = `product-details.html?id=${p.id}`;
+                    window.location.href = `product.html?id=${p.id}`;
                 };
             } else {
                 card.onclick = () => showAlert('⚠️', 'نفذت الكمية', 'نأسف، هذا المنتج غير متوفر حالياً.');
@@ -792,36 +662,20 @@
             grid.appendChild(card);
         });
     }
-    
-    /* ============================================
-       عرض التنبيه
-    ============================================ */
+
     function showAlert(icon, title, msg) {
         document.getElementById('alertIcon').textContent = icon;
         document.getElementById('alertTitle').textContent = title;
         document.getElementById('alertMsg').textContent = msg;
         document.getElementById('alertOv').classList.add('open');
     }
-    
+
     function closeAlert() {
         document.getElementById('alertOv').classList.remove('open');
     }
-    
-    /* ============================================
-       تشغيل الصفحة
-    ============================================ */
-    document.addEventListener('DOMContentLoaded', () => {
-        renderProducts();
-    });
-    
-    /* ============================================
-       إغلاق التنبيه بالضغط على ESC
-    ============================================ */
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            closeAlert();
-        }
-    });
+
+    document.addEventListener('DOMContentLoaded', renderProducts);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAlert(); });
 </script>
 </body>
 </html>
