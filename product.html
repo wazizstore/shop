@@ -77,6 +77,40 @@
             padding: 0 16px;
         }
 
+        /* LOADING SPINNER */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--ink);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(184, 150, 110, 0.2);
+            border-top-color: var(--gold);
+            border-right-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-overlay.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
         /* HEADER */
         header {
             position: sticky;
@@ -410,7 +444,6 @@
             color: var(--white);
         }
 
-        /* MEASUREMENT TOGGLE */
         .meas-tog {
             display: flex;
             align-items: center;
@@ -905,10 +938,15 @@
 </head>
 <body>
 
+<!-- LOADING SPINNER -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+</div>
+
 <!-- HEADER -->
 <header>
     <div class="hdr">
-        <div class="logo" onclick="window.location.href='shop.html'">
+        <div class="logo" onclick="window.location.href='index.html'">
             <div class="logo-main"><span>waziz</span> shop</div>
             <div class="logo-sub">fashion · style · quality</div>
         </div>
@@ -969,9 +1007,8 @@
     <div class="footer-bot">© 2026 waziz shop — جميع الحقوق محفوظة</div>
 </footer>
 
-<script src="script.js"></script>
 <script>
-    // بيانات المنتجات (نفس البيانات من shop.html)
+    // المنتجات (نفس البيانات من الكود القديم)
     const productsData = [
         { id: 12, name: "Ensemble likra mkhtat", price: "219", originalPrice: "259", description: "اونصوبل ليكرا توب مليح", cat: "clothes", images: ["Untitled design (6).webp", "Untitled design (7).webp"], sizes: ["m","l","xl"], inStock: true },
         { id: 18, name: "Ensemble t-shirt en SARWAL rido", price: "219", originalPrice: "299", description: "Ensemble t-shirt en SARWAL rido - جودة عالية وتصميم عصري", cat: "clothes", images: ["photo_2026-03-27_23-27-34.webp", "photo_2026-03-27_23-27-39.webp", "photo_2026-03-27_23-27-47.webp"], sizes: ["m","l","xl"], inStock: true },
@@ -985,13 +1022,44 @@
         { id: 15, name: "ساعة رجالية Casio", price: "199", originalPrice: "230", description: "✅ مصنوعة من مواد قوية مقاومة للصدمات والتآكل ✅ أناقة 💼 + مقاومة للماء 💧 + جودة عالية 🔋 ✅ مثالية للرجال", cat: "watches", images: ["photo_2025-10-25_21-42-52 (5).webp", "photo_2026-03-20_16-48-35.webp", "photo_2025-10-25_21-42-52 (2).webp", "photo_2025-10-25_21-42-52 (3).webp", "photo_2025-10-25_21-42-52 (4).webp"], sizes: [], inStock: true }
     ];
 
-    // Get product ID from URL
+    let selectedSize = '';
+
     function getProductIdFromUrl() {
         const params = new URLSearchParams(window.location.search);
         return parseInt(params.get('id'));
     }
 
-    // Render product details
+    function showToast(message, type = '') {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.className = 'toast show' + (type ? ' ' + type : '');
+        setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+
+    function showAlert(icon, title, msg) {
+        document.getElementById('alertIcon').textContent = icon;
+        document.getElementById('alertTitle').textContent = title;
+        document.getElementById('alertMsg').textContent = msg;
+        document.getElementById('alertOv').classList.add('open');
+    }
+
+    function closeAlert() {
+        document.getElementById('alertOv').classList.remove('open');
+    }
+
+    function validatePhone(phone) {
+        return /^(06|07)\d{8}$/.test(phone.replace(/\s/g, ''));
+    }
+
+    function changeQuantity(delta) {
+        const qtyInput = document.getElementById('orderQuantity');
+        if (qtyInput) {
+            let newVal = parseInt(qtyInput.value) + delta;
+            if (newVal < 1) newVal = 1;
+            qtyInput.value = newVal;
+        }
+    }
+
     function renderProductDetails() {
         const productId = getProductIdFromUrl();
         const product = productsData.find(p => p.id === productId);
@@ -1012,14 +1080,12 @@
         const disc = Math.round((1 - +product.price / +product.originalPrice) * 100);
         const saved = +product.originalPrice - +product.price;
         
-        // Thumbnails
         const thumbs = product.images.map((img, idx) => `
             <div class="gthumb ${idx === 0 ? 'active' : ''}" data-img="${img}">
                 <img src="${img}" alt="" loading="lazy">
             </div>
         `).join('');
         
-        // Size options
         const sizeOptions = product.sizes && product.sizes.length ? `
             <div class="odiv"></div>
             <div class="olabel">اختر القياس <span id="selectedSizeLabel"></span></div>
@@ -1123,7 +1189,6 @@
                 });
             });
             
-            // Measurement toggle
             const measCb = document.getElementById('measCb');
             const measFields = document.getElementById('measFields');
             if (measCb) {
@@ -1141,7 +1206,6 @@
                 });
             }
             
-            // Height/Weight calculation
             const heightInput = document.getElementById('heightInput');
             const weightInput = document.getElementById('weightInput');
             const measRes = document.getElementById('measRes');
@@ -1190,47 +1254,6 @@
             }
         }
         
-        return product;
-    }
-    
-    let selectedSize = '';
-    
-    function changeQuantity(delta) {
-        const qtyInput = document.getElementById('orderQuantity');
-        if (qtyInput) {
-            let newVal = parseInt(qtyInput.value) + delta;
-            if (newVal < 1) newVal = 1;
-            qtyInput.value = newVal;
-        }
-    }
-    
-    function showToast(message, type = '') {
-        const toast = document.getElementById('toast');
-        toast.textContent = message;
-        toast.className = 'toast show' + (type ? ' ' + type : '');
-        setTimeout(() => toast.classList.remove('show'), 2600);
-    }
-    
-    function showAlert(icon, title, msg) {
-        document.getElementById('alertIcon').textContent = icon;
-        document.getElementById('alertTitle').textContent = title;
-        document.getElementById('alertMsg').textContent = msg;
-        document.getElementById('alertOv').classList.add('open');
-    }
-    
-    function closeAlert() {
-        document.getElementById('alertOv').classList.remove('open');
-    }
-    
-    function validatePhone(phone) {
-        return /^(06|07)\d{8}$/.test(phone.replace(/\s/g, ''));
-    }
-    
-    // Initialize page
-    document.addEventListener('DOMContentLoaded', () => {
-        const product = renderProductDetails();
-        if (!product) return;
-        
         // Setup submit button
         const submitBtn = document.getElementById('submitOrderBtn');
         if (submitBtn) {
@@ -1253,7 +1276,6 @@
                 }
                 document.getElementById('customerPhone')?.classList.remove('err');
                 
-                // Size validation
                 if (product.sizes && product.sizes.length) {
                     const measCb = document.getElementById('measCb');
                     if (measCb?.checked) {
@@ -1272,6 +1294,9 @@
                 const sizeText = selectedSize ? selectedSize.toUpperCase() : 'بدون قياس';
                 const totalPrice = parseInt(product.price) * quantity;
                 
+                const TG_TOKEN = '8387473741:AAGHOI-oS7HXYFPSKfBmzotZ2PGCGNxhJiU';
+                const TG_CHAT = '6781508116';
+                
                 const message = `🛍️ طلب جديد من waziz shop\n\n` +
                     `👤 الاسم: ${name}\n` +
                     `📱 الهاتف: ${phone}\n` +
@@ -1283,9 +1308,6 @@
                     `💵 الإجمالي: ${totalPrice} درهم\n` +
                     `📐 القياس: ${sizeText}\n\n` +
                     `⏱️ تاريخ الطلب: ${new Date().toLocaleString('ar-MA')}`;
-                
-                const TG_TOKEN = '8387473741:AAGHOI-oS7HXYFPSKfBmzotZ2PGCGNxhJiU';
-                const TG_CHAT = '6781508116';
                 
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
@@ -1324,10 +1346,25 @@
             });
         }
         
-        // ESC key to close alert
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeAlert();
-        });
+        return product;
+    }
+    
+    // Initialize page with loading spinner
+    document.addEventListener('DOMContentLoaded', () => {
+        // Show loading spinner
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        loadingOverlay.classList.remove('hide');
+        
+        // Simulate minimum loading time for smooth experience
+        setTimeout(() => {
+            const product = renderProductDetails();
+            // Hide loading spinner after everything is loaded
+            loadingOverlay.classList.add('hide');
+        }, 500);
+    });
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeAlert();
     });
 </script>
 </body>
