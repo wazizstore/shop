@@ -360,111 +360,133 @@ button { cursor:pointer; border:none; background:none; }
 /* ──────────────────────────────────────
    5. HERO SECTION
 ────────────────────────────────────── */
+/* ── HERO — mobile-first, compact, warm ── */
 .hero {
   position: relative;
-  height: 100svh;
-  min-height: 560px;
-  max-height: 860px;
+  padding: 44px 20px 40px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  /* No full-screen height — flows naturally */
+}
+@media (min-width: 640px) {
+  .hero { padding: 60px 20px 52px; }
 }
 
 .hero-bg {
   position: absolute; inset: 0;
-  background: linear-gradient(160deg, #1a1008 0%, #0a0a0a 60%, #12100c 100%);
+  /* Warm dark, NOT pure black */
+  background: linear-gradient(175deg, #18100a 0%, #0e0b08 55%, #141008 100%);
 }
-/* Pattern overlay */
+/* Subtle diagonal stripe texture — pure CSS, zero HTTP requests */
 .hero-bg::before {
   content: '';
   position: absolute; inset: 0;
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(184,150,110,.025) 60px, rgba(184,150,110,.025) 61px),
-    repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(184,150,110,.025) 60px, rgba(184,150,110,.025) 61px);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0px,
+    transparent 28px,
+    rgba(184,150,110,.03) 28px,
+    rgba(184,150,110,.03) 29px
+  );
 }
-/* Glow */
+/* Bottom warm glow */
 .hero-bg::after {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse 70% 50% at 50% 80%, rgba(184,150,110,.14), transparent 65%);
+  background: radial-gradient(
+    ellipse 90% 55% at 50% 100%,
+    rgba(184,150,110,.16),
+    transparent 65%
+  );
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 600px;
-  padding: 0 20px;
+  max-width: 480px;
+  width: 100%;
 }
+
 .hero-badge {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  background: rgba(184,150,110,.15);
-  border: 1px solid rgba(184,150,110,.3);
+  gap: 6px;
+  background: rgba(184,150,110,.13);
+  border: 1px solid rgba(184,150,110,.28);
   color: var(--gold2);
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: .16em;
+  letter-spacing: .14em;
   text-transform: uppercase;
-  padding: 5px 14px;
+  padding: 5px 13px;
   border-radius: 99px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   opacity: 0;
-  animation: heroIn .7s .1s forwards;
+  animation: heroIn .6s .08s forwards;
 }
+
 .hero-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(36px, 7vw, 68px);
+  /* Responsive: comfortable on small phones */
+  font-size: clamp(28px, 8vw, 52px);
   font-weight: 400;
   color: var(--white);
-  line-height: 1.1;
-  margin-bottom: 14px;
+  line-height: 1.15;
+  margin-bottom: 12px;
   opacity: 0;
-  animation: heroIn .7s .25s forwards;
+  animation: heroIn .6s .2s forwards;
 }
-.hero-title em { font-style:italic; color: var(--gold2); }
+.hero-title em     { font-style: italic; color: var(--gold2); }
 .hero-title strong { font-weight: 800; }
 
 .hero-line {
-  width: 50px; height: 2px;
+  width: 40px; height: 2px;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  margin: 18px auto;
+  margin: 14px auto;
   opacity: 0;
-  animation: heroIn .7s .4s forwards;
+  animation: heroIn .6s .32s forwards;
 }
+
 .hero-sub {
-  font-size: 14px;
-  color: rgba(255,255,255,.6);
+  font-size: 13px;
+  color: rgba(255,255,255,.55);
   font-weight: 300;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
+  line-height: 1.6;
   opacity: 0;
-  animation: heroIn .7s .5s forwards;
+  animation: heroIn .6s .42s forwards;
 }
+
 .hero-cta {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: var(--gold);
   color: var(--ink);
   font-size: 14px;
   font-weight: 800;
-  padding: 14px 32px;
+  padding: 13px 28px;
   border-radius: var(--r3);
   letter-spacing: .04em;
   opacity: 0;
-  animation: heroIn .7s .62s forwards;
+  animation: heroIn .6s .52s forwards;
   transition: transform var(--tf), box-shadow var(--tf), background var(--tf);
 }
 .hero-cta:hover {
   background: var(--gold2);
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(184,150,110,.4);
+  box-shadow: 0 6px 24px rgba(184,150,110,.38);
 }
-.hero-cta i { font-size: 13px; }
+.hero-cta:active { transform: scale(.97); }
+.hero-cta i { font-size: 12px; }
 
-@keyframes heroIn { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 
 /* ──────────────────────────────────────
@@ -1129,63 +1151,134 @@ button { cursor:pointer; border:none; background:none; }
 
 
 /* ──────────────────────────────────────
-   19. INDEX PAGE — CATEGORIES GRID
+   19. INDEX PAGE — CATEGORIES LIST
+   واحدة تحت واحدة على الموبايل
 ────────────────────────────────────── */
 .cats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  padding-bottom: 50px;
+  display: flex;
+  flex-direction: column;   /* ← عمود واحد على الموبايل */
+  gap: 10px;
+  padding-bottom: 8px;
 }
-@media(min-width:640px){ .cats-grid{ grid-template-columns:repeat(3,1fr); gap:16px; } }
+/* 2 columns on tablets+ */
+@media (min-width: 600px) {
+  .cats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
 
+/* Each category row — horizontal card, easy to tap */
 .cat-card {
   position: relative;
-  border-radius: var(--r3);
+  border-radius: var(--r2);
   overflow: hidden;
-  aspect-ratio: 3/2;
   cursor: pointer;
   display: flex;
-  align-items: flex-end;
-  transition: transform var(--t), box-shadow var(--t);
+  align-items: center;
+  gap: 0;
+  min-height: 72px;         /* comfortable tap target */
   background: var(--ink2);
+  border: 1px solid rgba(184,150,110,.12);
+  transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+  /* No fixed aspect-ratio — height is natural */
+  aspect-ratio: unset;
+  text-decoration: none;
 }
-.cat-card:hover { transform: translateY(-4px); box-shadow: var(--sh3); }
-.cat-card:active { transform: scale(.97); }
+.cat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sh2);
+  border-color: rgba(184,150,110,.3);
+}
+.cat-card:active { transform: scale(.98); }
 
+/* Left accent strip */
+.cat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;        /* RTL: strip on the right */
+  width: 3px; height: 100%;
+  background: var(--gold);
+  opacity: 0;
+  transition: opacity var(--t);
+  border-radius: 0 var(--r2) var(--r2) 0;
+}
+.cat-card:hover::before { opacity: 1; }
+
+/* Subtle warm glow bg — no heavy gradient needed */
 .cat-card-bg {
   position: absolute; inset: 0;
-  background: linear-gradient(135deg, #1a140a, #0a0a0a);
+  background: linear-gradient(100deg, rgba(184,150,110,.06) 0%, transparent 60%);
+  pointer-events: none;
 }
-.cat-card-bg::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(0deg, rgba(0,0,0,.7) 0%, transparent 60%);
-}
-.cat-card-icon {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-60%);
-  font-size: 32px;
-  color: var(--gold);
-  opacity: .7;
-  transition: transform var(--t), opacity var(--t);
-}
-.cat-card:hover .cat-card-icon { transform:translate(-50%,-65%); opacity:1; }
+.cat-card-bg::after { display: none; } /* remove old overlay */
 
+/* Icon box — left side */
+.cat-card-icon {
+  /* Override absolute positioning from before */
+  position: relative;
+  top: unset; left: unset;
+  transform: none;
+  flex-shrink: 0;
+  width: 68px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--gold);
+  opacity: .85;
+  background: rgba(184,150,110,.07);
+  border-left: 1px solid rgba(184,150,110,.1);
+  transition: opacity var(--t), background var(--t);
+  min-height: 72px;
+}
+.cat-card:hover .cat-card-icon {
+  opacity: 1;
+  background: rgba(184,150,110,.13);
+  transform: none; /* override old transform */
+}
+
+/* Text block */
 .cat-card-body {
   position: relative;
   z-index: 1;
-  padding: 14px 16px;
-  width: 100%;
+  padding: 0 16px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
+
+.cat-card-texts { display: flex; flex-direction: column; gap: 2px; }
+
 .cat-card-name {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--white);
-  margin-bottom: 2px;
+  line-height: 1.2;
 }
-.cat-card-count { font-size: 10.5px; color: var(--gold2); font-weight: 500; }
+.cat-card-count {
+  font-size: 11px;
+  color: rgba(255,255,255,.4);
+  font-weight: 400;
+}
+
+/* Arrow chevron on the left (RTL: this is the leading side visually) */
+.cat-card-arrow {
+  color: var(--gold);
+  opacity: 0;
+  font-size: 12px;
+  transition: opacity var(--t), transform var(--t);
+  transform: translateX(4px);
+  flex-shrink: 0;
+}
+.cat-card:hover .cat-card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
 
 
 /* ──────────────────────────────────────
@@ -1196,4 +1289,54 @@ button { cursor:pointer; border:none; background:none; }
   .footer-in { grid-template-columns:1fr; }
   .trust { gap:6px; padding:10px; }
   .ti span { font-size:8.5px; }
+  /* Tighter hero on small screens */
+  .hero { padding:36px 18px 34px; }
+  .hero-badge { font-size:9.5px; padding:4px 11px; margin-bottom:13px; }
+  .hero-sub { font-size:12px; margin-bottom:20px; }
+  .hero-cta { padding:12px 24px; font-size:13.5px; }
 }
+
+/* ──────────────────────────────────────
+   21. PERFORMANCE — CSS-ONLY BOOSTS
+   Zero JavaScript overhead
+────────────────────────────────────── */
+
+/* Defer offscreen rendering for product cards below fold */
+.pcard { content-visibility: auto; contain-intrinsic-size: 0 320px; }
+
+/* Prevent layout shifts on images by reserving space */
+.pcard-img { contain: strict; }
+.gallery-main { contain: layout style; }
+
+/* Reduce paint area for sticky elements */
+.site-header { contain: layout style; }
+.cat-wrap     { contain: layout style; }
+
+/* Smooth scroll only when user has no motion preference */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+  .marquee-track { animation: none; }
+}
+
+/* Touch: remove 300ms tap delay everywhere */
+a, button, [onclick] { touch-action: manipulation; }
+
+/* Prevent text size bump on orientation change (iOS) */
+body { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+/* GPU-accelerate only elements that actually animate */
+.pcard-img img,
+.cat-card,
+.nav-drawer,
+.cart-drawer,
+.modal-sheet  { will-change: transform; }
+
+/* Remove will-change when not in use (memory saver) */
+.pcard-img img:not(:hover),
+.cat-card:not(:hover) { will-change: auto; }
