@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="description" content="waziz shop - تسوق أحدث الملابس والساعات والحقائب">
+<title>waziz shop | أناقتك تبدأ هنا</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══════════════ MARQUEE ═══════════════ -->
+<div class="marquee-bar" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item"><i class="fas fa-truck"></i> التوصيل مجاني 🚚</span>
+    <span class="marquee-item"><span class="mdot"></span></span>
+    <span class="marquee-item"><i class="fas fa-handshake"></i> الدفع عند الاستلام 🤝</span>
+    <span class="marquee-item"><span class="mdot"></span></span>
+    <span class="marquee-item"><i class="fas fa-tag"></i> تخفيضات 50% 🔥</span>
+    <span class="marquee-item"><span class="mdot"></span></span>
+    <span class="marquee-item"><i class="fas fa-truck"></i> التوصيل مجاني 🚚</span>
+    <span class="marquee-item"><span class="mdot"></span></span>
+    <span class="marquee-item"><i class="fas fa-handshake"></i> الدفع عند الاستلام 🤝</span>
+    <span class="marquee-item"><span class="mdot"></span></span>
+    <span class="marquee-item"><i class="fas fa-tag"></i> تخفيضات 50% 🔥</span>
+    <span class="marquee-item"><span class="mdot"></span></span>
+  </div>
+</div>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header class="site-header">
+  <div class="nav-inner">
+    <!-- Hamburger (right) -->
+    <button class="hamburger" id="menuBtn" aria-label="القائمة" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Logo (center) -->
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-main"><span>waziz</span> shop</div>
+      <div class="nav-logo-sub">fashion · style · quality</div>
+    </a>
+
+    <!-- Cart (left) -->
+    <button class="cart-btn" onclick="toggleCart()" aria-label="السلة">
+      <i class="fas fa-bag-shopping"></i>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+  </div>
+</header>
+
+<!-- Drawer overlay -->
+<div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
+
+<!-- Slide-in menu drawer -->
+<nav class="nav-drawer" id="navDrawer">
+  <div class="drawer-head">
+    <span class="drawer-head-logo"><span>waziz</span> shop</span>
+    <button class="drawer-x" onclick="closeMenu()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="drawer-nav">
+    <a href="index.html" class="active"><i class="fas fa-house"></i> الرئيسية</a>
+    <a href="shop.html"><i class="fas fa-border-all"></i> جميع المنتجات</a>
+    <div class="drawer-divider"></div>
+    <a href="shop.html?cat=clothes"><i class="fas fa-tshirt"></i> الملابس</a>
+    <a href="shop.html?cat=watches"><i class="fas fa-clock"></i> الساعات</a>
+    <a href="shop.html?cat=bags"><i class="fas fa-bag-shopping"></i> الحقائب</a>
+    <a href="shop.html?cat=electronics"><i class="fas fa-microchip"></i> الإلكترونيات</a>
+  </div>
+  <div class="drawer-footer"><p>© 2026 waziz shop</p></div>
+</nav>
+
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><i class="fas fa-fire"></i> الموسم الجديد 2026</div>
+    <h1 class="hero-title">
+      أناقتك<br><em>تبدأ</em> <strong>هنا</strong>
+    </h1>
+    <div class="hero-line"></div>
+    <p class="hero-sub">تخفيضات تصل إلى 50% · توصيل مجاني · دفع عند الاستلام</p>
+    <a href="shop.html" class="hero-cta">
+      <i class="fas fa-bolt"></i> أطلب الآن
+    </a>
+  </div>
+</section>
+
+
+<!-- ═══════════════ FEATURE STRIP ═══════════════ -->
+<div class="feature-strip">
+  <div class="feature-strip-inner">
+    <div class="feature-item"><i class="fas fa-truck-fast"></i> توصيل سريع</div>
+    <div class="feature-item"><i class="fas fa-money-bill-wave"></i> دفع عند الاستلام</div>
+    <div class="feature-item"><i class="fas fa-shield-halved"></i> جودة مضمونة</div>
+    <div class="feature-item"><i class="fas fa-headset"></i> دعم 24/7</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════ CATEGORIES ═══════════════ -->
+<div class="wrap">
+  <div class="sec-head">
+    <div>
+      <p class="sec-kicker">تسوق حسب الفئة</p>
+      <h2 class="sec-title">الأقسام</h2>
+    </div>
+  </div>
+  <div class="cats-grid">
+    <a href="shop.html?cat=clothes" class="cat-card">
+      <div class="cat-card-bg"></div>
+      <i class="fas fa-tshirt cat-card-icon"></i>
+      <div class="cat-card-body">
+        <div class="cat-card-name">الملابس</div>
+        <div class="cat-card-count" id="clothes-count">... منتج</div>
+      </div>
+    </a>
+    <a href="shop.html?cat=watches" class="cat-card">
+      <div class="cat-card-bg"></div>
+      <i class="fas fa-clock cat-card-icon"></i>
+      <div class="cat-card-body">
+        <div class="cat-card-name">الساعات</div>
+        <div class="cat-card-count" id="watches-count">... منتج</div>
+      </div>
+    </a>
+    <a href="shop.html?cat=bags" class="cat-card">
+      <div class="cat-card-bg"></div>
+      <i class="fas fa-bag-shopping cat-card-icon"></i>
+      <div class="cat-card-body">
+        <div class="cat-card-name">الحقائب</div>
+        <div class="cat-card-count" id="bags-count">... منتج</div>
+      </div>
+    </a>
+    <a href="shop.html?cat=electronics" class="cat-card">
+      <div class="cat-card-bg"></div>
+      <i class="fas fa-microchip cat-card-icon"></i>
+      <div class="cat-card-body">
+        <div class="cat-card-name">الإلكترونيات</div>
+        <div class="cat-card-count" id="electronics-count">... منتج</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+
+<!-- ═══════════════ FEATURED PRODUCTS ═══════════════ -->
+<div class="wrap">
+  <div class="sec-head">
+    <div>
+      <p class="sec-kicker">الأكثر مبيعاً</p>
+      <h2 class="sec-title">منتجات مختارة</h2>
+    </div>
+    <a href="shop.html" class="sec-link">عرض الكل <i class="fas fa-arrow-left"></i></a>
+  </div>
+  <div class="grid" id="featuredGrid"></div>
+</div>
+
+
+<!-- ═══════════════ CART DRAWER ═══════════════ -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <div class="cart-head-title"><i class="fas fa-bag-shopping"></i> سلة التسوق</div>
+    <button class="cart-close" onclick="toggleCart()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot" id="cartFoot" style="display:none">
+    <div class="cart-total">
+      <span class="cart-total-lbl">المجموع</span>
+      <span class="cart-total-amt" id="cartTotal">0 درهم</span>
+    </div>
+    <button class="cart-checkout-btn" onclick="openCheckout()">
+      <i class="fas fa-lock"></i> إتمام الطلب
+    </button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-head">
+      <span class="modal-head-title">📝 تأكيد الطلب</span>
+      <button class="modal-x" onclick="closeCheckout()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" id="checkoutBody"></div>
+  </div>
+</div>
+
+<!-- ALERT -->
+<div class="alert-ov" id="alertOv">
+  <div class="alert-card">
+    <div class="alert-ico" id="alertIco">⚠️</div>
+    <div class="alert-ttl" id="alertTtl"></div>
+    <div class="alert-msg" id="alertMsg"></div>
+    <button class="alert-ok" onclick="closeAlert()">حسناً</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="site-footer">
+  <div class="footer-in">
+    <div class="footer-brand">
+      <div class="nav-logo-main" style="margin-bottom:6px"><span>waziz</span> shop</div>
+      <p>متجرك الأول للأناقة — ملابس، ساعات، حقائب بأسعار لا تُقاوم.</p>
+    </div>
+    <div class="footer-col">
+      <h4>تواصل معنا</h4>
+      <p><i class="fas fa-phone" style="color:var(--gold)"></i> 0635208269</p>
+      <p><i class="fas fa-location-dot" style="color:var(--gold)"></i> الدار البيضاء، المغرب</p>
+    </div>
+  </div>
+  <div class="footer-bot">© 2026 waziz shop — جميع الحقوق محفوظة</div>
+</footer>
+
+<script src="shared_data.js"></script>
+<script>
+/* ══════════════════════════════════
+   STATE
+══════════════════════════════════ */
+let cart = JSON.parse(sessionStorage.getItem('wz_cart') || '[]');
+let cartOpen = false, menuOpen = false;
+
+/* ══════════════════════════════════
+   INIT
+══════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  updateBadge();
+  updateCategoryCounts();
+  renderFeatured();
+});
+
+/* Category counts */
+function updateCategoryCounts() {
+  const counts = { clothes:0, watches:0, bags:0, electronics:0 };
+  products.forEach(p => { if (counts[p.cat] !== undefined) counts[p.cat]++; });
+  document.getElementById('clothes-count').textContent     = counts.clothes     + ' منتج';
+  document.getElementById('watches-count').textContent     = counts.watches     + ' منتج';
+  document.getElementById('bags-count').textContent        = counts.bags        + ' منتج';
+  document.getElementById('electronics-count').textContent = counts.electronics + ' منتج';
+}
+
+/* Featured = first 8 inStock products */
+function renderFeatured() {
+  const featured = products.filter(p => p.inStock).slice(0, 8);
+  const grid = document.getElementById('featuredGrid');
+  grid.innerHTML = '';
+  const catLabels = { clothes:'ملابس', watches:'ساعات', bags:'حقائب', electronics:'إلكترونيات' };
+  featured.forEach((p, i) => {
+    const disc = Math.round((1 - +p.price / +p.originalPrice) * 100);
+    const card = document.createElement('div');
+    card.className = 'pcard';
+    card.style.animationDelay = Math.min(i * 0.05, 0.38) + 's';
+    card.innerHTML = `
+      <div class="pcard-img">
+        <img src="${p.images[0]}" alt="${p.name}" loading="lazy" width="300" height="300" decoding="async">
+        ${disc > 0 ? `<span class="pcard-badge b-sale">-${disc}%</span>` : ''}
+        <span class="b-cat">${catLabels[p.cat] || ''}</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-name">${p.name}</div>
+        <div class="pcard-price">
+          <span class="pp-now">${p.price} <small style="font-size:9px;font-weight:500">درهم</small></span>
+          <span class="pp-was">${p.originalPrice} درهم</span>
+        </div>
+        <span class="pcard-ship"><i class="fas fa-truck"></i> توصيل مجاني</span>
+      </div>`;
+    card.onclick = () => goProduct(p.id);
+    // lazy image reveal
+    const img = card.querySelector('img');
+    img.onload = () => img.classList.add('loaded');
+    if (img.complete) img.classList.add('loaded');
+    grid.appendChild(card);
+  });
+}
+
+function goProduct(id) {
+  window.location.href = `product.html?id=${id}`;
+}
+
+/* ══════════════════════════════════
+   MENU
+══════════════════════════════════ */
+function toggleMenu() {
+  menuOpen = !menuOpen;
+  document.getElementById('navDrawer').classList.toggle('open', menuOpen);
+  document.getElementById('navOverlay').classList.toggle('open', menuOpen);
+  document.getElementById('menuBtn').classList.toggle('open', menuOpen);
+}
+function closeMenu() {
+  menuOpen = false;
+  document.getElementById('navDrawer').classList.remove('open');
+  document.getElementById('navOverlay').classList.remove('open');
+  document.getElementById('menuBtn').classList.remove('open');
+}
+
+/* ══════════════════════════════════
+   CART
+══════════════════════════════════ */
+function saveCart() { sessionStorage.setItem('wz_cart', JSON.stringify(cart)); }
+function updateBadge() { document.getElementById('cartBadge').textContent = cart.length; }
+
+function toggleCart() {
+  cartOpen = !cartOpen;
+  document.getElementById('cartDrawer').classList.toggle('open', cartOpen);
+  document.getElementById('cartOverlay').classList.toggle('open', cartOpen);
+  if (cartOpen) renderCart();
+}
+
+function renderCart() {
+  const body = document.getElementById('cartBody');
+  const foot = document.getElementById('cartFoot');
+  if (!cart.length) {
+    body.innerHTML = `<div class="cart-empty"><i class="fas fa-bag-shopping"></i><p>سلتك فارغة<br><small>أضف منتجات لتبدأ</small></p></div>`;
+    foot.style.display = 'none'; return;
+  }
+  let html = '', total = 0;
+  cart.forEach((item, idx) => {
+    total += parseInt(item.price);
+    html += `<div class="cart-line">
+      <div class="cart-line-img"><img src="${item.img}" alt="" loading="lazy"></div>
+      <div class="cart-line-info">
+        <div class="cart-line-name">${item.name}</div>
+        <div class="cart-line-meta">${item.color ? item.color + ' · ' : ''}${item.size}</div>
+      </div>
+      <span class="cart-line-price">${item.price} د</span>
+      <button class="cart-rm" onclick="rmCart(${idx})"><i class="fas fa-times"></i></button>
+    </div>`;
+  });
+  body.innerHTML = html;
+  document.getElementById('cartTotal').textContent = total + ' درهم';
+  foot.style.display = 'block';
+}
+
+function rmCart(idx) { cart.splice(idx, 1); saveCart(); updateBadge(); renderCart(); }
+
+/* ══════════════════════════════════
+   CHECKOUT MODAL
+══════════════════════════════════ */
+function openCheckout() {
+  if (!cart.length) { showToast('السلة فارغة', 'err'); return; }
+  let total = 0, rows = '';
+  cart.forEach(i => {
+    total += parseInt(i.price);
+    rows += `<div class="co-row"><span>${i.name.slice(0,26)}…</span><span>${i.price} د</span></div>`;
+  });
+  document.getElementById('checkoutBody').innerHTML = `
+    <div class="co-sum">${rows}<div class="co-total"><span>المجموع</span><span>${total} درهم</span></div></div>
+    <div class="form-row">
+      <div class="form-field"><label>الاسم</label><input type="text" id="cName" placeholder="أحمد"></div>
+      <div class="form-field"><label>الهاتف</label><input type="tel" id="cPhone" placeholder="06XXXXXXXX"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-field"><label>المدينة</label><input type="text" id="cCity" placeholder="الدار البيضاء"></div>
+      <div class="form-field"><label>المجموع</label><input value="${total} درهم" disabled style="font-weight:800;color:var(--gold);background:var(--gold-pale);border-color:transparent"></div>
+    </div>
+    <div class="form-field"><label>العنوان</label><input type="text" id="cAddr" placeholder="الشارع، الحي..."></div>
+    <button class="submit-btn" id="cartSubmitBtn" onclick="submitCart()"><i class="fas fa-check-circle"></i> تأكيد الطلب</button>`;
+  document.getElementById('checkoutModal').classList.add('open');
+}
+function closeCheckout() { document.getElementById('checkoutModal').classList.remove('open'); }
+
+/* ══════════════════════════════════
+   TELEGRAM
+══════════════════════════════════ */
+const TG_TOKEN = '8387473741:AAGHOI-oS7HXYFPSKfBmzotZ2PGCGNxhJiU';
+const TG_CHAT  = '6781508116';
+async function tg(msg) {
+  const r = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+    method: 'POST', headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ chat_id: TG_CHAT, text: msg })
+  });
+  return r.ok;
+}
+function valPhone(p) { return /^(06|07)\d{8}$/.test(p.replace(/\s/g,'')); }
+
+async function submitCart() {
+  const name  = document.getElementById('cName')?.value.trim();
+  const phone = document.getElementById('cPhone')?.value.trim();
+  const city  = document.getElementById('cCity')?.value.trim();
+  const addr  = document.getElementById('cAddr')?.value.trim();
+  if (!name||!phone||!city||!addr) { showToast('يرجى ملء جميع الحقول','err'); return; }
+  if (!valPhone(phone)) { showToast('رقم الهاتف غير صحيح','err'); document.getElementById('cPhone').classList.add('err'); return; }
+  document.getElementById('cPhone').classList.remove('err');
+  let msg = `🛒 طلب من السلة\n👤 ${name}\n📱 ${phone}\n🏙️ ${city}\n📍 ${addr}\n\n📋 المنتجات:\n`;
+  let total = 0;
+  cart.forEach((i, idx) => { total += parseInt(i.price); msg += `${idx+1}. ${i.name} · ${i.color||''} · ${i.size} · ${i.price} درهم\n`; });
+  msg += `\n💰 المجموع: ${total} درهم`;
+  const btn = document.getElementById('cartSubmitBtn');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...'; }
+  try {
+    if (await tg(msg)) {
+      document.getElementById('checkoutBody').innerHTML = `
+        <div class="success-box"><div class="suc-ico"><i class="fas fa-check"></i></div>
+        <h3>تم استلام طلبك! 🎉</h3>
+        <p>شكراً <strong>${name}</strong>، سنتصل بك على <strong>${phone}</strong> قريباً.</p>
+        <button class="suc-back" onclick="closeCheckout()"><i class="fas fa-arrow-right"></i> متابعة التسوق</button></div>`;
+      cart = []; saveCart(); updateBadge();
+    } else { showToast('حدث خطأ، حاول مجدداً','err'); if(btn){btn.disabled=false;btn.innerHTML='<i class="fas fa-check-circle"></i> تأكيد الطلب';} }
+  } catch { showToast('خطأ في الاتصال','err'); if(btn){btn.disabled=false;btn.innerHTML='<i class="fas fa-check-circle"></i> تأكيد الطلب';} }
+}
+
+/* ══════════════════════════════════
+   UI HELPERS
+══════════════════════════════════ */
+let _tt;
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' '+type : '');
+  clearTimeout(_tt);
+  _tt = setTimeout(() => t.classList.remove('show'), 2600);
+}
+function showAlert(ico, ttl, msg) {
+  document.getElementById('alertIco').textContent = ico;
+  document.getElementById('alertTtl').textContent = ttl;
+  document.getElementById('alertMsg').textContent = msg;
+  document.getElementById('alertOv').classList.add('open');
+}
+function closeAlert() { document.getElementById('alertOv').classList.remove('open'); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeMenu(); closeAlert(); closeCheckout(); }
+});
+</script>
+</body>
+</html>
