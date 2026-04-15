@@ -134,27 +134,43 @@ button { cursor:pointer; border:none; background:none; }
   letter-spacing: .06em;
   position: relative;
   z-index: 1001;
+  /* Mask edges for fade-in/out effect = seamless feel */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
 }
+
+/* Single track — duplicated content inside HTML makes it seamless */
 .marquee-track {
   display: inline-flex;
-  animation: mrq 22s linear infinite;
+  /* translateX(-50%) moves exactly one copy out — seamless loop */
+  animation: mrq 28s linear infinite;
+  /* pause on hover so user can read */
 }
+.marquee-bar:hover .marquee-track { animation-play-state: paused; }
+
 .marquee-item {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 0 32px;
+  padding: 0 28px;
+  /* Each item is flex so it never wraps */
+  white-space: nowrap;
 }
-.marquee-item i { color: var(--gold); font-size: 10px; }
+.marquee-item i { color: var(--gold); font-size: 10px; flex-shrink: 0; }
 .mdot {
   display: inline-block;
-  width: 3px; height: 3px;
+  width: 4px; height: 4px;
   background: var(--gold);
   border-radius: 50%;
-  margin: 0 6px;
-  vertical-align: middle;
+  opacity: .6;
+  flex-shrink: 0;
 }
-@keyframes mrq { to { transform: translateX(-50%); } }
+
+/* The keyframe only needs to move exactly one set (50% of doubled content) */
+@keyframes mrq {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
 
 
 /* ──────────────────────────────────────
@@ -1151,134 +1167,158 @@ button { cursor:pointer; border:none; background:none; }
 
 
 /* ──────────────────────────────────────
-   19. INDEX PAGE — CATEGORIES LIST
-   واحدة تحت واحدة على الموبايل
+   19. INDEX PAGE — CATEGORIES
 ────────────────────────────────────── */
+
+/* Grid: 1 column on mobile, 2 on tablet+ */
 .cats-grid {
   display: flex;
-  flex-direction: column;   /* ← عمود واحد على الموبايل */
-  gap: 10px;
-  padding-bottom: 8px;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 12px;
 }
-/* 2 columns on tablets+ */
 @media (min-width: 600px) {
   .cats-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 14px;
   }
 }
 
-/* Each category row — horizontal card, easy to tap */
+/* ── CARD ── */
 .cat-card {
   position: relative;
-  border-radius: var(--r2);
+  border-radius: var(--r3);          /* rounder = premium */
   overflow: hidden;
   cursor: pointer;
   display: flex;
-  align-items: center;
-  gap: 0;
-  min-height: 72px;         /* comfortable tap target */
-  background: var(--ink2);
-  border: 1px solid rgba(184,150,110,.12);
-  transition: transform var(--t), box-shadow var(--t), border-color var(--t);
-  /* No fixed aspect-ratio — height is natural */
-  aspect-ratio: unset;
+  align-items: flex-end;             /* text sits at bottom */
+  min-height: 140px;                 /* tall enough to be a real card */
   text-decoration: none;
+  background: var(--ink2);
+  border: 1px solid rgba(184,150,110,.15);
+  transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+  /* hint the browser this will transform */
+  will-change: transform;
+}
+@media (min-width: 600px) {
+  .cat-card { min-height: 160px; }
 }
 .cat-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--sh2);
-  border-color: rgba(184,150,110,.3);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 44px rgba(0,0,0,.28);
+  border-color: rgba(184,150,110,.38);
 }
-.cat-card:active { transform: scale(.98); }
+.cat-card:active { transform: scale(.97); transition-duration: .08s; }
 
-/* Left accent strip */
-.cat-card::before {
-  content: '';
-  position: absolute;
-  top: 0; right: 0;        /* RTL: strip on the right */
-  width: 3px; height: 100%;
-  background: var(--gold);
-  opacity: 0;
-  transition: opacity var(--t);
-  border-radius: 0 var(--r2) var(--r2) 0;
-}
-.cat-card:hover::before { opacity: 1; }
-
-/* Subtle warm glow bg — no heavy gradient needed */
+/* ── BACKGROUND IMAGE LAYER ── */
+/* The img tag inside .cat-card-bg acts as the category photo */
 .cat-card-bg {
   position: absolute; inset: 0;
-  background: linear-gradient(100deg, rgba(184,150,110,.06) 0%, transparent 60%);
-  pointer-events: none;
+  overflow: hidden;
 }
-.cat-card-bg::after { display: none; } /* remove old overlay */
+.cat-card-bg img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: .45;                    /* dim so text stays readable */
+  transition: opacity var(--t), transform .55s ease;
+  filter: saturate(.8);
+}
+.cat-card:hover .cat-card-bg img {
+  opacity: .55;
+  transform: scale(1.06);          /* gentle zoom on hover */
+}
+/* Gradient overlay — dark at bottom for legibility */
+.cat-card-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(10,10,10,.88) 0%,
+    rgba(10,10,10,.30) 55%,
+    rgba(10,10,10,.10) 100%
+  );
+}
+/* Fallback: if no image, show a warm dark gradient */
+.cat-card-bg.no-img {
+  background: linear-gradient(145deg, #1c1208 0%, #0a0a0a 100%);
+}
 
-/* Icon box — left side */
+/* ── ICON (top-right decorative) ── */
 .cat-card-icon {
-  /* Override absolute positioning from before */
-  position: relative;
-  top: unset; left: unset;
-  transform: none;
-  flex-shrink: 0;
-  width: 68px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
+  position: absolute;
+  top: 16px;
+  left: 16px;                       /* RTL: appears top-left visually */
+  font-size: 22px;
   color: var(--gold);
-  opacity: .85;
-  background: rgba(184,150,110,.07);
-  border-left: 1px solid rgba(184,150,110,.1);
-  transition: opacity var(--t), background var(--t);
-  min-height: 72px;
+  opacity: .65;
+  transition: opacity var(--t), transform var(--t);
+  z-index: 2;
+  /* background pill */
+  background: rgba(184,150,110,.12);
+  border: 1px solid rgba(184,150,110,.2);
+  border-radius: 99px;
+  padding: 7px 10px;
+  line-height: 1;
 }
 .cat-card:hover .cat-card-icon {
   opacity: 1;
-  background: rgba(184,150,110,.13);
-  transform: none; /* override old transform */
+  transform: scale(1.08);
 }
 
-/* Text block */
+/* ── TEXT BLOCK ── */
 .cat-card-body {
   position: relative;
-  z-index: 1;
-  padding: 0 16px;
-  flex: 1;
+  z-index: 3;
+  padding: 14px 16px;
+  width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 8px;
 }
-
-.cat-card-texts { display: flex; flex-direction: column; gap: 2px; }
+.cat-card-texts { display: flex; flex-direction: column; gap: 3px; }
 
 .cat-card-name {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 17px;
+  font-weight: 800;
   color: var(--white);
   line-height: 1.2;
+  text-shadow: 0 1px 6px rgba(0,0,0,.5);
 }
 .cat-card-count {
-  font-size: 11px;
-  color: rgba(255,255,255,.4);
-  font-weight: 400;
+  font-size: 11.5px;
+  color: var(--gold2);
+  font-weight: 500;
+  opacity: .85;
 }
 
-/* Arrow chevron on the left (RTL: this is the leading side visually) */
+/* Arrow */
 .cat-card-arrow {
   color: var(--gold);
+  font-size: 13px;
   opacity: 0;
-  font-size: 12px;
   transition: opacity var(--t), transform var(--t);
-  transform: translateX(4px);
+  transform: translateX(6px);
   flex-shrink: 0;
+  margin-bottom: 2px;
 }
 .cat-card:hover .cat-card-arrow {
   opacity: 1;
   transform: translateX(0);
 }
+
+/* Gold bottom-border accent */
+.cat-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity var(--t);
+}
+.cat-card:hover::after { opacity: 1; }
 
 
 /* ──────────────────────────────────────
