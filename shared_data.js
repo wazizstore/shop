@@ -42,7 +42,7 @@ const CLOTHES = [
     images: ["Untitled design (6).webp","Untitled design (7).webp"],
     colors: [
       {name:"أسود", class:"black", inStock:true},
-      {name:"أبيض", class:"white", inStock:true}
+      {name:"أبيض", class:"white", inStock:false}
     ],
     sizes: ["m","l","xl"], inStock: true
   },
