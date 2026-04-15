@@ -24,20 +24,31 @@
 <!-- MARQUEE -->
 <div class="marquee-bar" aria-hidden="true">
   <div class="marquee-track">
-    <span class="marquee-item"><i class="fas fa-truck"></i> التوصيل مجاني 🚚</span>
+    <!-- نسخة 1 — المحتوى الأصلي -->
+    <span class="marquee-item"><i class="fas fa-truck"></i>&nbsp;التوصيل مجاني 🚚</span>
     <span class="marquee-item"><span class="mdot"></span></span>
-    <span class="marquee-item"><i class="fas fa-handshake"></i> الدفع عند الاستلام 🤝</span>
+    <span class="marquee-item"><i class="fas fa-handshake"></i>&nbsp;الدفع عند الاستلام 🤝</span>
     <span class="marquee-item"><span class="mdot"></span></span>
-    <span class="marquee-item"><i class="fas fa-tag"></i> تخفيضات 50% 🔥</span>
+    <span class="marquee-item"><i class="fas fa-tag"></i>&nbsp;تخفيضات تصل إلى 50% 🔥</span>
     <span class="marquee-item"><span class="mdot"></span></span>
-    <span class="marquee-item"><i class="fas fa-truck"></i> التوصيل مجاني 🚚</span>
+    <span class="marquee-item"><i class="fas fa-shield-halved"></i>&nbsp;جودة مضمونة ✅</span>
     <span class="marquee-item"><span class="mdot"></span></span>
-    <span class="marquee-item"><i class="fas fa-handshake"></i> الدفع عند الاستلام 🤝</span>
+    <span class="marquee-item"><i class="fas fa-bolt"></i>&nbsp;توصيل سريع لجميع المدن</span>
     <span class="marquee-item"><span class="mdot"></span></span>
-    <span class="marquee-item"><i class="fas fa-tag"></i> تخفيضات 50% 🔥</span>
+    <!-- نسخة 2 — طبق الأصل (تجعل الحلقة لا تنقطع) -->
+    <span class="marquee-item"><i class="fas fa-truck"></i>&nbsp;التوصيل مجاني 🚚</span>
+    <span class="marquee-item"><span class="mdot"></span></span>
+    <span class="marquee-item"><i class="fas fa-handshake"></i>&nbsp;الدفع عند الاستلام 🤝</span>
+    <span class="marquee-item"><span class="mdot"></span></span>
+    <span class="marquee-item"><i class="fas fa-tag"></i>&nbsp;تخفيضات تصل إلى 50% 🔥</span>
+    <span class="marquee-item"><span class="mdot"></span></span>
+    <span class="marquee-item"><i class="fas fa-shield-halved"></i>&nbsp;جودة مضمونة ✅</span>
+    <span class="marquee-item"><span class="mdot"></span></span>
+    <span class="marquee-item"><i class="fas fa-bolt"></i>&nbsp;توصيل سريع لجميع المدن</span>
     <span class="marquee-item"><span class="mdot"></span></span>
   </div>
 </div>
+
 
 <!-- HEADER -->
 <header class="site-header">
@@ -162,7 +173,7 @@ let currentProduct = null;
 let selColor = '', selSize = '';
 let imgIdx = 0, fsIdx = 0;
 let cartOpen = false, menuOpen = false;
-let loadedImgs = 0, totalImgs = 0;
+// (image counters handled inline in buildProduct)
 
 /* ══════════════════════════════════
    INIT — READ id FROM URL
@@ -350,25 +361,42 @@ function buildProduct(p) {
       </div>
     </div>`;
 
-  /* ── Image loading with Promise.all ── */
-  const allImgs = document.getElementById('productLayout').querySelectorAll('img');
-  totalImgs = allImgs.length;
-  loadedImgs = 0;
+  /* ══════════════════════════════════════════
+     IMAGE LOADING — انتظر على الأقل صورتين
+     قبل إخفاء الـ Spinner وفتح الصفحة
+  ══════════════════════════════════════════ */
+  const allImgs  = document.getElementById('productLayout').querySelectorAll('img');
+  const imgArray = Array.from(allImgs);
 
-  if (totalImgs === 0) { hideLoader(); return; }
+  if (imgArray.length === 0) { hideLoader(); return; }
 
-  const promises = Array.from(allImgs).map(img => new Promise(resolve => {
-    const done = () => { img.classList.add('il'); resolve(); };
-    if (img.complete && img.naturalWidth > 0) { done(); return; }
-    img.addEventListener('load',  done, { once:true });
-    img.addEventListener('error', resolve, { once:true });
-  }));
+  // كم صورة يجب تحميلها قبل الفتح؟
+  // min(2, عدد الصور الكلي) — أي لو المنتج صورة واحدة فقط تكفي
+  const REQUIRED = Math.min(2, imgArray.length);
+  let readyCount = 0;
+  let pageOpened = false;
 
-  // Hide loader only when ALL images loaded (Promise.all)
-  Promise.all(promises).then(hideLoader);
+  function onOneLoaded(img) {
+    img.classList.add('il');
+    readyCount++;
+    // عند وصول العدد المطلوب → افتح الصفحة
+    if (!pageOpened && readyCount >= REQUIRED) {
+      pageOpened = true;
+      hideLoader();
+    }
+  }
 
-  // Safety timeout — max 5s
-  setTimeout(hideLoader, 5000);
+  imgArray.forEach(img => {
+    if (img.complete && img.naturalWidth > 0) {
+      onOneLoaded(img);
+    } else {
+      img.addEventListener('load',  () => onOneLoaded(img), { once: true });
+      img.addEventListener('error', () => onOneLoaded(img), { once: true }); // خطأ = نعدّه جاهزاً
+    }
+  });
+
+  // Safety net: لو الاتصال بطيء جداً → افتح بعد 6 ثواني على أبعد تقدير
+  setTimeout(() => { if (!pageOpened) { pageOpened = true; hideLoader(); } }, 6000);
 }
 
 
