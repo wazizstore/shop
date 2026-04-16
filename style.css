@@ -277,18 +277,21 @@ button { cursor:pointer; border:none; background:none; }
 /* slide-in drawer menu */
 .nav-drawer {
   position: fixed;
-  top: 0; right: -100%;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
   width: min(280px, 80vw);
   height: 100vh;
   background: var(--ink2);
   z-index: 2000;
   display: flex;
   flex-direction: column;
-  transition: right .32s cubic-bezier(.25,.46,.45,.94);
-  box-shadow: var(--sh3);
-  padding: 0;
+  transition: transform .32s cubic-bezier(.25,.46,.45,.94);
 }
-.nav-drawer.open { right: 0; }
+
+.nav-drawer.open {
+  transform: translateX(0);
+}
 
 .drawer-head {
   display: flex;
@@ -1421,4 +1424,10 @@ body { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .cart-drawer,
 .modal-sheet  { will-change: transform; }
 .pcard-img img:not(:hover),
-.cat-card:not(:hover) { will-change: auto; }
+.cat-card:not(:hover) { will-change: auto; } html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+* {
+  max-width: 100%;
+}
