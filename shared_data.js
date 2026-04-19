@@ -84,6 +84,25 @@ const CLOTHES = [
     ],
     sizes: ["m","l","xl"], inStock: true
   },
+    {
+    id: 13,
+    name: "Ensemble rido shomis et srwal",
+    price: "199", originalPrice: "259",
+    description: "Ensemble rido shomis et srwal",
+    cat: "clothes",
+    images: [
+      "1754474745_WhatsApp Image 2025-08-05 at 23.47.53 (2).webp",
+      "1754474745_WhatsApp Image 2025-08-05 at 23.47.53.webp",
+      "1754474745_WhatsApp Image 2025-08-05 at 23.47.53 (1).webp"
+    ],
+    colors: [
+      {name:"أسود", class:"black", inStock:true},
+      {name:"أبيض", class:"white", inStock:true},
+      {name:"بني",  class:"brown", inStock:true}
+    ],
+    sizes: ["m","l","xl"], inStock: true
+  },
+ 
   {
     id: 10,
     name: "Ensemble swid",
@@ -100,24 +119,7 @@ const CLOTHES = [
     ],
     sizes: ["m","l","xl"], inStock: true
   },
-  {
-    id: 6,
-    name: "Sweet nike",
-    price: "199", originalPrice: "299",
-    description: "المليح ثوب مونطوني مقطن.",
-    cat: "clothes",
-    images: [
-      "Gemini_Generated_Image_o3s4y2o3s4y2o3s4.webp",
-      "Gemini_Generated_Image_rk9k64rk9k64rk9k.webp",
-      "Gemini_Generated_Image_dhbtp9dhbtp9dhbt.webp",
-      "Gemini_Generated_Image_3vprbh3vprbh3vpr.webp"
-    ],
-    colors: [
-      {name:"Vert", class:"vert",  inStock:true},
-      {name:"Noir", class:"black", inStock:false}
-    ],
-    sizes: ["m","l","xl"], inStock: false
-  },
+ 
   {
     id: 9,
     name: "Ensemble Rédou b sensla",
@@ -136,54 +138,8 @@ const CLOTHES = [
     ],
     sizes: ["m","l","xl","xxl"], inStock: true
   },
-  {
-    id: 13,
-    name: "Ensemble rido shomis et srwal",
-    price: "199", originalPrice: "259",
-    description: "Ensemble rido shomis et srwal",
-    cat: "clothes",
-    images: [
-      "1754474745_WhatsApp Image 2025-08-05 at 23.47.53 (2).webp",
-      "1754474745_WhatsApp Image 2025-08-05 at 23.47.53.webp",
-      "1754474745_WhatsApp Image 2025-08-05 at 23.47.53 (1).webp"
-    ],
-    colors: [
-      {name:"أسود", class:"black", inStock:true},
-      {name:"أبيض", class:"white", inStock:true},
-      {name:"بني",  class:"brown", inStock:true}
-    ],
-    sizes: ["m","l","xl"], inStock: true
-  },
-  {
-    id: 14,
-    name: "Ensemble sweet likra simple",
-    price: "219", originalPrice: "299",
-    description: "سويت ليكرا مليح.",
-    cat: "clothes",
-    images: ["3.webp","1.webp","2.webp"],
-    colors: [
-      {name:"رمادي", class:"grey",  inStock:true},
-      {name:"أبيض",  class:"white", inStock:true},
-      {name:"أسود",  class:"black", inStock:true}
-    ],
-    sizes: ["m","l","xl"], inStock: true
-  },
-  {
-    id: 1,
-    name: "Ensemble nike",
-    price: "219", originalPrice: "299",
-    description: "اونسومبل NIKE صيفي لرجال 💥 التوب مونطوني مقطن",
-    cat: "clothes",
-    images: [
-      "1757028183_instagram-1756553237064.webp",
-      "1757028183_IMG_20250830_122844_404 (1).webp"
-    ],
-    colors: [
-      {name:"أخضر", class:"green", inStock:true},
-      {name:"أسود",  class:"black", inStock:true}
-    ],
-    sizes: ["m","l","xl"], inStock: false
-  }
+ 
+
   /* ↑↑↑ أضف ملابس جديدة هنا ↑↑↑
   ,{
     id: 20,
