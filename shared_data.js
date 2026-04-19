@@ -46,25 +46,7 @@ const CLOTHES = [
     ],
     sizes: ["m","l","xl"], inStock: true
   },
-  {
-    id: 18,
-    name: "Ensemble t-shirt en SARWAL rido",
-    price: "219", originalPrice: "299",
-    description: "Ensemble t-shirt en SARWAL rido - جودة عالية وتصميم عصري",
-    cat: "clothes",
-    images: [
-      "photo_2026-03-27_23-27-34.webp",
-      "photo_2026-03-27_23-27-39.webp",
-      "photo_2026-03-27_23-27-47.webp"
-    ],
-    colors: [
-      {name:"أسود", class:"black", inStock:true},
-      {name:"أبيض", class:"white", inStock:false},
-      {name:"بني",  class:"brown", inStock:false},
-      {name:"أزرق", class:"blue",  inStock:false}
-    ],
-    sizes: ["m","l","xl"], inStock: true
-  },
+ 
   {
     id: 17,
     name: "ENSEMBLE RIDO BLA JIB (SHOMIS & chort)",
