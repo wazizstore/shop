@@ -224,7 +224,23 @@ const BAGS = [
    🔌  ELECTRONICS — الإلكترونيات
    أضف / احذف إلكترونيات هنا
 ════════════════════════════════════════ */
-const ELECTRONICS = [
+const ELECTRONICS = [{
+  id: 20,
+  name: "جهاز ترطيب الهواء المحمول",
+  price: 199,
+  originalPrice: 230,
+  description: "7 ألوان, وشاحن USB , خزان مياه قوي 600 مل يمكنك ضبط سرعة الرياح والتحكم بما يناسبك",
+  cat: "ELECTRONICS",
+  images: [
+    "1X8jzYJwRgyOlpuhinq48qebrFdKjZG6bsek7Qdw (1).jpg",
+    "tJPPPVdCfuNpmzz3m1f78blaxPn0Sedyx3ZgfCG6.jpg",
+    "gFbbyMd9n6vClVVe2a12YMwkeiidUF1KBPfploni.jpg"
+  ],
+  colors: [],
+  sizes: [],
+  noSizes: true,
+  inStock: true
+}
   /* ↑↑↑ أضف إلكترونيات جديدة هنا ↑↑↑
   {
     id: 70,
