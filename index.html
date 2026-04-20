@@ -321,7 +321,7 @@
       <i class="fas fa-house-chimney catc-icon"></i>
       <div class="catc-body">
         <div class="catc-info">
-          <div class="catc-name">معدات المنزل</div>
+          <div class="catc-name">الاجهزه</div>
           <div class="catc-count" id="home-count">... منتج</div>
         </div>
         <span class="catc-btn"><i class="fas fa-chevron-left"></i> تصفح</span>
@@ -424,7 +424,7 @@ function renderFeatured() {
 
   const grid      = document.getElementById('featuredGrid');
   grid.innerHTML  = '';
-  const catLabels = { clothes:'ملابس', watches:'ساعات', bags:'حقائب', home:'منزل' };
+  const catLabels = { clothes:'ملابس', watches:'ساعات', bags:'حقائب', home:'الاجهزه' };
 
   picks.forEach((p, i) => {
     const disc  = Math.round((1 - +p.price / +p.originalPrice) * 100);
