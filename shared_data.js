@@ -1,4 +1,4 @@
-const ELECTRONICS = [{
+const home = [{
   id: 20,
   name: "جهاز ترطيب الهواء المحمول",
   price: 199,
