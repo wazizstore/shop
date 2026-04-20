@@ -259,4 +259,4 @@ const BAGS = [
 /* ════════════════════════════════════════════════════════════
    دمج الكل — لا تعدّل هذا السطر أبداً
 ════════════════════════════════════════════════════════════ */
-const products = [...CLOTHES, ...WATCHES, ...BAGS, ...ELECTRONICS];
+const products = [...CLOTHES, ...WATCHES, ...BAGS, ...electronics];
