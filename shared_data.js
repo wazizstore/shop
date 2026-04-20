@@ -1,8 +1,8 @@
 const home = [{
   id: 20,
   name: "جهاز ترطيب الهواء المحمول",
-  price: 199,
-  originalPrice: 230,
+  price: "199",
+  originalPrice: "230",
   description: "7 ألوان, وشاحن USB , خزان مياه قوي 600 مل يمكنك ضبط سرعة الرياح والتحكم بما يناسبك",
   cat: "home",
   images: [
